@@ -236,6 +236,29 @@
       "description": "Ingress kuralları, TLS sertifikaları ve alan yönlendirmeleri. Hangi servisin dışarıya açıldığını izler."
     }
   },
+  "ai": {
+    "panel": {
+      "title": "AI Asistan",
+      "subtitle": "KÜME · ANALİZ · MODU",
+      "clearTitle": "Konuşmayı temizle",
+      "emptyTitle": "Clusterınızı kendi dilinizle gözlemleyin",
+      "emptySubtitle": "Pod'lar, node'lar, olaylar veya kaynak kullanımı hakkında sorun",
+      "placeholder": "Kümeniz hakkında sorun…",
+      "mockDataNote": "MOCK VERİ · GERÇEK KÜME BAĞLANTISI YOK",
+      "suggestedQueries": "ÖNERİLEN SORGULAR",
+      "prompts": {
+        "unhealthyPods": "Sağlıksız pod'lar",
+        "cpuHogs": "CPU yoğun tüketiciler",
+        "memoryPressure": "Bellek baskısı",
+        "recentEvents": "Son olaylar",
+        "serviceHealth": "Servis sağlığı"
+      }
+    },
+    "message": {
+      "you": "Siz",
+      "assistant": "Asistan"
+    }
+  },
   "locale": {
     "tr": "Türkçe",
     "en": "English"

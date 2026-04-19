@@ -1,4 +1,5 @@
 import { Sidebar } from "@/shared/components/layout/sidebar";
+import { AiAssistantPanel } from "@/shared/components/ai/ai-assistant-panel";
 
 interface ClusterLayoutProps {
   children: React.ReactNode;
@@ -15,6 +16,7 @@ export default async function ClusterLayout({
     <div className="flex min-h-screen">
       <Sidebar clusterId={clusterId} />
       <div className="flex-1 flex flex-col min-w-0">{children}</div>
+      <AiAssistantPanel />
     </div>
   );
 }

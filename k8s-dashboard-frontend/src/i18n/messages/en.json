@@ -236,6 +236,29 @@
       "description": "Ingress rules, TLS certificates, and domain routing. Tracks which services are exposed externally."
     }
   },
+  "ai": {
+    "panel": {
+      "title": "AI Assistant",
+      "subtitle": "CLUSTER · ANALYSIS · MODE",
+      "clearTitle": "Clear conversation",
+      "emptyTitle": "Query your cluster in natural language",
+      "emptySubtitle": "Ask about pods, nodes, events, or resource usage",
+      "placeholder": "Ask about your cluster…",
+      "mockDataNote": "MOCK DATA · NO REAL CLUSTER CONNECTION",
+      "suggestedQueries": "SUGGESTED QUERIES",
+      "prompts": {
+        "unhealthyPods": "Unhealthy pods",
+        "cpuHogs": "CPU hogs",
+        "memoryPressure": "Memory pressure",
+        "recentEvents": "Recent events",
+        "serviceHealth": "Service health"
+      }
+    },
+    "message": {
+      "you": "You",
+      "assistant": "Assistant"
+    }
+  },
   "locale": {
     "tr": "Türkçe",
     "en": "English"

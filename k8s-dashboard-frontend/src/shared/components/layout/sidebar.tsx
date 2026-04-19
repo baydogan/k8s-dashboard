@@ -19,6 +19,7 @@ import {
 import { cn } from "@/shared/lib/utils";
 import { Logo } from "@/shared/components/ui/logo";
 import { useTranslations } from "next-intl";
+import { useAiStore } from "@/shared/store/ai-store";
 
 interface NavItem {
   label: string;
@@ -36,6 +37,7 @@ export function Sidebar({ clusterId }: { clusterId: string }) {
   const pathname = usePathname();
   const base = `/clusters/${clusterId}`;
   const t = useTranslations("nav");
+  const openPanel = useAiStore((s) => s.openPanel);
 
   const groups: NavGroup[] = [
     {
@@ -153,7 +155,7 @@ export function Sidebar({ clusterId }: { clusterId: string }) {
               <p className="text-[10px] text-text-muted leading-relaxed mb-3">
                 {t("ai.description")}
               </p>
-              <button className="w-full h-7 flex items-center justify-center gap-1.5 bg-accent/10 border border-accent/30 text-accent text-[10px] font-mono hover:bg-accent/20 transition-colors rounded-sm">
+              <button onClick={openPanel} className="w-full h-7 flex items-center justify-center gap-1.5 bg-accent/10 border border-accent/30 text-accent text-[10px] font-mono hover:bg-accent/20 transition-colors rounded-sm">
                 <Zap className="h-3 w-3" />
                 {t("ai.button")}
               </button>
