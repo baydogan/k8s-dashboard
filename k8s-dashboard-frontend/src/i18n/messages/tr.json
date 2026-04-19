@@ -1,0 +1,243 @@
+{
+  "common": {
+    "loading": "Yükleniyor",
+    "cancel": "İptal",
+    "save": "Kaydet",
+    "delete": "Sil",
+    "edit": "Düzenle",
+    "back": "Geri",
+    "next": "İleri",
+    "submit": "Gönder",
+    "search": "Ara",
+    "filter": "Filtrele",
+    "all": "Tümü",
+    "none": "Yok",
+    "yes": "Evet",
+    "no": "Hayır",
+    "confirm": "Onayla",
+    "close": "Kapat",
+    "systemReady": "SİSTEM · HAZIR"
+  },
+  "auth": {
+    "login": {
+      "corner": "[KİMLİK / OTURUM / YENİ]",
+      "internal": "K8S.OBSERVER · DAHİLİ",
+      "title": "Giriş Yap",
+      "subtitle": "erişim bilgileri gerekli",
+      "emailLabel": "E-posta",
+      "emailPlaceholder": "ornek@k8s.local",
+      "passwordLabel": "Parola",
+      "passwordPlaceholder": "••••••••••••",
+      "submit": "GİRİŞ YAP",
+      "submitting": "DOĞRULANIYOR",
+      "noAccount": "Hesabın yok mu?",
+      "registerLink": "Kayıt ol"
+    },
+    "register": {
+      "corner": "[KİMLİK / KAYIT / YENİ]",
+      "title": "Hesap Oluştur",
+      "subtitle": "yeni kullanıcı oluşturuluyor",
+      "emailLabel": "E-posta",
+      "emailPlaceholder": "ornek@k8s.local",
+      "passwordLabel": "Parola",
+      "passwordPlaceholder": "en az 8 karakter",
+      "confirmPasswordLabel": "Parolayı Onayla",
+      "confirmPasswordPlaceholder": "••••••••••••",
+      "submit": "HESAP OLUŞTUR",
+      "submitting": "OLUŞTURULUYOR",
+      "hasAccount": "Zaten hesabın var mı?",
+      "loginLink": "Giriş yap"
+    }
+  },
+  "clusters": {
+    "list": {
+      "breadcrumb": "KAYITLI / CLUSTERLAR",
+      "title": "Bir cluster seç",
+      "description": "Gözlemlemek istediğin Kubernetes cluster'ını seç veya yeni bir kubeconfig yükleyerek yenisini ekle.",
+      "addButton": "CLUSTER EKLE",
+      "registerCard": "Cluster kaydet",
+      "registerCardHint": "kubeconfig yükle",
+      "empty": {
+        "title": "Henüz cluster kayıtlı değil",
+        "description": "Kubeconfig dosyasını yükleyerek ilk Kubernetes cluster'ını ekle.",
+        "action": "CLUSTER KAYDET"
+      },
+      "card": {
+        "nodes": "Node",
+        "pods": "Pod",
+        "namespaces": "Ns",
+        "registered": "kayıt tarihi"
+      }
+    },
+    "new": {
+      "breadcrumb": "CLUSTERLAR / YENİ",
+      "title": "Yeni cluster kaydet",
+      "description": "Bir Kubernetes cluster'ını bağlamak için kubeconfig dosyası yükle. Kimlik bilgilerin şifreli olarak saklanır.",
+      "nameLabel": "Cluster Etiketi",
+      "namePlaceholder": "production-eu-west-1",
+      "fileLabel": "Kubeconfig Dosyası",
+      "fileUploadHint": "Kubeconfig yüklemek için tıkla",
+      "fileExtensions": ".yaml / .yml / .conf",
+      "pasteLabel": "Ya da doğrudan yapıştır",
+      "submit": "CLUSTER KAYDET",
+      "submitting": "BAĞLANIYOR..."
+    },
+    "status": {
+      "healthy": "Sağlıklı",
+      "warning": "Uyarı",
+      "critical": "Kritik",
+      "unknown": "Bilinmiyor"
+    }
+  },
+  "nav": {
+    "groups": {
+      "overview": "GENEL",
+      "workloads": "YÜKLER",
+      "cluster": "CLUSTER",
+      "network": "AĞ"
+    },
+    "items": {
+      "dashboard": "Panel",
+      "events": "Olaylar",
+      "pods": "Podlar",
+      "deployments": "Deploymentlar",
+      "nodes": "Nodelar",
+      "namespaces": "Namespaceler",
+      "services": "Servisler",
+      "ingresses": "Ingressler"
+    },
+    "live": "CANLI",
+    "activeCluster": "Aktif Cluster",
+    "ai": {
+      "title": "Yapay Zeka Asistanı",
+      "description": "Cluster'ına doğal dilde soru sor",
+      "button": "ASİSTANA SOR"
+    },
+    "footer": {
+      "apiVersion": "API v{version}",
+      "connected": "BAĞLI",
+      "disconnected": "BAĞLANTI YOK"
+    }
+  },
+  "header": {
+    "namespaceLabel": "NS",
+    "namespaceAll": "tüm namespaceler",
+    "user": "kullanıcı",
+    "switchToLight": "Açık temaya geç",
+    "switchToDark": "Koyu temaya geç"
+  },
+  "overview": {
+    "title": "Genel Bakış",
+    "breadcrumb": "Cluster",
+    "stateLabel": "CLUSTER DURUMU",
+    "allOperational": "Tüm sistemler çalışıyor",
+    "lastSynced": "Son senkronizasyon {time} · API aktif",
+    "stats": {
+      "nodes": "Node",
+      "nodesSub": "hazır",
+      "pods": "Pod",
+      "podsSub": "çalışıyor",
+      "namespaces": "Namespace",
+      "namespacesSub": "aktif",
+      "events": "Olay",
+      "eventsSub": "son 1 saatte"
+    },
+    "recentEvents": {
+      "title": "Son Olaylar",
+      "live": "CANLI"
+    },
+    "resources": {
+      "title": "Kaynak Özeti",
+      "cpu": "CPU Kullanımı",
+      "memory": "Bellek Kullanımı",
+      "storage": "Depolama",
+      "workloads": "Yükler",
+      "running": "Çalışıyor",
+      "pending": "Beklemede",
+      "failed": "Başarısız",
+      "succeeded": "Tamamlandı"
+    }
+  },
+  "pods": {
+    "title": "Podlar",
+    "breadcrumb": "Yükler",
+    "summary": {
+      "total": "Toplam",
+      "running": "Çalışıyor",
+      "failing": "Hatalı"
+    },
+    "columns": {
+      "name": "Ad",
+      "namespace": "Namespace",
+      "status": "Durum",
+      "ready": "Hazır",
+      "restarts": "Restart",
+      "node": "Node",
+      "age": "Yaş"
+    },
+    "status": {
+      "running": "Çalışıyor",
+      "pending": "Beklemede",
+      "succeeded": "Tamamlandı",
+      "failed": "Başarısız",
+      "crashLoopBackOff": "CrashLoopBackOff",
+      "terminating": "Sonlandırılıyor",
+      "unknown": "Bilinmiyor"
+    }
+  },
+  "nodes": {
+    "title": "Nodelar",
+    "breadcrumb": "Cluster",
+    "metrics": {
+      "cpu": "CPU",
+      "memory": "Bellek",
+      "pods": "Pod",
+      "age": "Yaş",
+      "ip": "IP"
+    },
+    "status": {
+      "ready": "Hazır",
+      "notReady": "Hazır Değil",
+      "schedulingDisabled": "Zamanlama Kapalı"
+    }
+  },
+  "placeholder": {
+    "status": "DURUM / BEKLEMEDE",
+    "terminalLabel": "kubectl — durum",
+    "feature": "özellik",
+    "backend": "backend",
+    "ui": "arayüz",
+    "scaffolded": "İSKELET HAZIR",
+    "pending": "BEKLEMEDE",
+    "ready": "HAZIR",
+    "events": {
+      "title": "Olaylar",
+      "breadcrumb": "Genel Bakış",
+      "description": "SSE ile gerçek zamanlı cluster olayları. Uyarılar, hatalar ve durum değişiklikleri anında gösterilir."
+    },
+    "namespaces": {
+      "title": "Ad Alanları",
+      "breadcrumb": "Cluster",
+      "description": "Namespace envanteri — kaynak sayıları, etiketler ve yaş bilgisi. Tüm panelde hızlı filtreleme yapılabilir."
+    },
+    "deployments": {
+      "title": "Dağıtımlar",
+      "breadcrumb": "Yükler",
+      "description": "Deployment görünümü — replica durumu, rollout geçmişi ve image versiyonları. Scale ve restart işlemleri buradan yapılır."
+    },
+    "services": {
+      "title": "Servisler",
+      "breadcrumb": "Ağ",
+      "description": "Servis keşfi — ClusterIP, NodePort ve LoadBalancer yapılandırmaları ve endpoint sağlık durumu."
+    },
+    "ingresses": {
+      "title": "Ingress'ler",
+      "breadcrumb": "Ağ",
+      "description": "Ingress kuralları, TLS sertifikaları ve alan yönlendirmeleri. Hangi servisin dışarıya açıldığını izler."
+    }
+  },
+  "locale": {
+    "tr": "Türkçe",
+    "en": "English"
+  }
+}

@@ -2,14 +2,18 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { FormEvent, useState } from "react";
+import { useState } from "react";
 import { ArrowLeft, Upload, FileText } from "lucide-react";
 import { Input } from "@/shared/components/ui/input";
 import { Button } from "@/shared/components/ui/button";
 import { Logo } from "@/shared/components/ui/logo";
+import { LocaleToggle } from "@/shared/components/ui/locale-toggle";
+import { useTranslations } from "next-intl";
 
 export default function NewClusterPage() {
   const router = useRouter();
+  const t = useTranslations("clusters.new");
+  const tc = useTranslations("common");
   const [loading, setLoading] = useState(false);
   const [clusterName, setClusterName] = useState("");
   const [kubeconfig, setKubeconfig] = useState("");
@@ -24,7 +28,7 @@ export default function NewClusterPage() {
     reader.readAsText(file);
   }
 
-  async function handleSubmit(e: FormEvent) {
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setLoading(true);
     // TODO: POST to /api/clusters
@@ -36,26 +40,28 @@ export default function NewClusterPage() {
     <div className="min-h-screen flex flex-col">
       <div className="h-14 border-b border-border px-6 flex items-center justify-between bg-bg-raised/30">
         <Logo />
-        <Link
-          href="/clusters"
-          className="flex items-center gap-1.5 text-xs font-mono text-text-muted hover:text-text transition-colors"
-        >
-          <ArrowLeft className="h-3 w-3" />
-          BACK
-        </Link>
+        <div className="flex items-center gap-3">
+          <LocaleToggle />
+          <Link
+            href="/clusters"
+            className="flex items-center gap-1.5 text-xs font-mono text-text-muted hover:text-text transition-colors"
+          >
+            <ArrowLeft className="h-3 w-3" />
+            {tc("back").toUpperCase()}
+          </Link>
+        </div>
       </div>
 
       <div className="flex-1 px-6 py-10 max-w-2xl mx-auto w-full">
         <div className="flex items-center gap-2 text-[10px] font-mono text-text-dim tracking-[0.2em] mb-3">
           <span className="w-6 h-px bg-accent" />
-          CLUSTERS / NEW
+          {t("breadcrumb")}
         </div>
         <h1 className="font-display text-2xl font-semibold text-text mb-2">
-          Register a new cluster
+          {t("title")}
         </h1>
         <p className="text-sm text-text-muted mb-8">
-          Upload a kubeconfig file to connect a Kubernetes cluster. Your
-          credentials are encrypted at rest.
+          {t("description")}
         </p>
 
         <form
@@ -64,17 +70,16 @@ export default function NewClusterPage() {
         >
           <Input
             id="name"
-            label="Cluster Label"
-            placeholder="production-eu-west-1"
+            label={t("nameLabel")}
+            placeholder={t("namePlaceholder")}
             value={clusterName}
             onChange={(e) => setClusterName(e.target.value)}
             required
           />
 
-          {/* File upload */}
           <div>
             <label className="block text-[10px] font-mono tracking-[0.15em] text-text-muted uppercase mb-2">
-              Kubeconfig File
+              {t("fileLabel")}
             </label>
             <label className="block cursor-pointer">
               <input
@@ -92,27 +97,22 @@ export default function NewClusterPage() {
                 ) : (
                   <>
                     <Upload className="h-5 w-5 text-text-muted mx-auto mb-2" />
-                    <p className="text-xs font-mono text-text">
-                      Click to upload kubeconfig
-                    </p>
-                    <p className="text-[10px] font-mono text-text-dim mt-1">
-                      .yaml / .yml / .conf
-                    </p>
+                    <p className="text-xs font-mono text-text">{t("fileUploadHint")}</p>
+                    <p className="text-[10px] font-mono text-text-dim mt-1">{t("fileExtensions")}</p>
                   </>
                 )}
               </div>
             </label>
           </div>
 
-          {/* Paste alternative */}
           <div>
             <label className="block text-[10px] font-mono tracking-[0.15em] text-text-muted uppercase mb-2">
-              Or paste directly
+              {t("pasteLabel")}
             </label>
             <textarea
               value={kubeconfig}
               onChange={(e) => setKubeconfig(e.target.value)}
-              placeholder="apiVersion: v1&#10;kind: Config&#10;clusters:&#10;  - name: ..."
+              placeholder={"apiVersion: v1\nkind: Config\nclusters:\n  - name: ..."}
               rows={8}
               className="w-full bg-bg-sunken border border-border text-text font-mono text-xs p-3 rounded-sm focus:outline-none focus:border-accent/60 resize-none placeholder:text-text-dim"
             />
@@ -120,16 +120,14 @@ export default function NewClusterPage() {
 
           <div className="flex items-center justify-end gap-2 pt-2">
             <Link href="/clusters">
-              <Button type="button" variant="ghost">
-                CANCEL
-              </Button>
+              <Button type="button" variant="ghost">{tc("cancel").toUpperCase()}</Button>
             </Link>
             <Button
               type="submit"
               variant="primary"
               disabled={loading || !clusterName || !kubeconfig}
             >
-              {loading ? "CONNECTING..." : "REGISTER CLUSTER"}
+              {loading ? t("submitting") : t("submit")}
             </Button>
           </div>
         </form>

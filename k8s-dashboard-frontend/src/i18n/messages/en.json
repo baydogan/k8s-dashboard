@@ -1,0 +1,243 @@
+{
+  "common": {
+    "loading": "Loading",
+    "cancel": "Cancel",
+    "save": "Save",
+    "delete": "Delete",
+    "edit": "Edit",
+    "back": "Back",
+    "next": "Next",
+    "submit": "Submit",
+    "search": "Search",
+    "filter": "Filter",
+    "all": "All",
+    "none": "None",
+    "yes": "Yes",
+    "no": "No",
+    "confirm": "Confirm",
+    "close": "Close",
+    "systemReady": "SYSTEM · READY"
+  },
+  "auth": {
+    "login": {
+      "corner": "[AUTH / SESSION / NEW]",
+      "internal": "K8S.OBSERVER · INTERNAL",
+      "title": "Authenticate",
+      "subtitle": "access credentials required",
+      "emailLabel": "Email",
+      "emailPlaceholder": "ops@k8s.internal",
+      "passwordLabel": "Password",
+      "passwordPlaceholder": "••••••••••••",
+      "submit": "SIGN IN",
+      "submitting": "AUTHENTICATING",
+      "noAccount": "No account?",
+      "registerLink": "Register"
+    },
+    "register": {
+      "corner": "[AUTH / REGISTER / NEW]",
+      "title": "Create Account",
+      "subtitle": "provision new operator",
+      "emailLabel": "Email",
+      "emailPlaceholder": "ops@k8s.internal",
+      "passwordLabel": "Password",
+      "passwordPlaceholder": "min. 8 characters",
+      "confirmPasswordLabel": "Confirm Password",
+      "confirmPasswordPlaceholder": "••••••••••••",
+      "submit": "CREATE ACCOUNT",
+      "submitting": "PROVISIONING",
+      "hasAccount": "Already registered?",
+      "loginLink": "Sign in"
+    }
+  },
+  "clusters": {
+    "list": {
+      "breadcrumb": "REGISTERED / CLUSTERS",
+      "title": "Select a cluster",
+      "description": "Choose a Kubernetes cluster to observe, or register a new one by uploading a kubeconfig.",
+      "addButton": "ADD CLUSTER",
+      "registerCard": "Register cluster",
+      "registerCardHint": "upload kubeconfig",
+      "empty": {
+        "title": "No clusters registered",
+        "description": "Add your first Kubernetes cluster by uploading its kubeconfig file.",
+        "action": "REGISTER CLUSTER"
+      },
+      "card": {
+        "nodes": "Nodes",
+        "pods": "Pods",
+        "namespaces": "Ns",
+        "registered": "registered"
+      }
+    },
+    "new": {
+      "breadcrumb": "CLUSTERS / NEW",
+      "title": "Register a new cluster",
+      "description": "Upload a kubeconfig file to connect a Kubernetes cluster. Your credentials are encrypted at rest.",
+      "nameLabel": "Cluster Label",
+      "namePlaceholder": "production-eu-west-1",
+      "fileLabel": "Kubeconfig File",
+      "fileUploadHint": "Click to upload kubeconfig",
+      "fileExtensions": ".yaml / .yml / .conf",
+      "pasteLabel": "Or paste directly",
+      "submit": "REGISTER CLUSTER",
+      "submitting": "CONNECTING..."
+    },
+    "status": {
+      "healthy": "Healthy",
+      "warning": "Warning",
+      "critical": "Critical",
+      "unknown": "Unknown"
+    }
+  },
+  "nav": {
+    "groups": {
+      "overview": "OVERVIEW",
+      "workloads": "WORKLOADS",
+      "cluster": "CLUSTER",
+      "network": "NETWORK"
+    },
+    "items": {
+      "dashboard": "Dashboard",
+      "events": "Events",
+      "pods": "Pods",
+      "deployments": "Deployments",
+      "nodes": "Nodes",
+      "namespaces": "Namespaces",
+      "services": "Services",
+      "ingresses": "Ingresses"
+    },
+    "live": "LIVE",
+    "activeCluster": "Active Cluster",
+    "ai": {
+      "title": "AI Assistant",
+      "description": "Query your cluster in natural language",
+      "button": "ASK ASSISTANT"
+    },
+    "footer": {
+      "apiVersion": "API v{version}",
+      "connected": "CONNECTED",
+      "disconnected": "DISCONNECTED"
+    }
+  },
+  "header": {
+    "namespaceLabel": "NS",
+    "namespaceAll": "all namespaces",
+    "user": "user",
+    "switchToLight": "Switch to light mode",
+    "switchToDark": "Switch to dark mode"
+  },
+  "overview": {
+    "title": "Overview",
+    "breadcrumb": "Cluster",
+    "stateLabel": "CLUSTER STATE",
+    "allOperational": "All systems operational",
+    "lastSynced": "Last synced {time} · API responsive",
+    "stats": {
+      "nodes": "Nodes",
+      "nodesSub": "all ready",
+      "pods": "Pods",
+      "podsSub": "running",
+      "namespaces": "Namespaces",
+      "namespacesSub": "active",
+      "events": "Events",
+      "eventsSub": "last hour"
+    },
+    "recentEvents": {
+      "title": "Recent Events",
+      "live": "LIVE"
+    },
+    "resources": {
+      "title": "Resource Summary",
+      "cpu": "CPU Usage",
+      "memory": "Memory Usage",
+      "storage": "Storage",
+      "workloads": "Workloads",
+      "running": "Running",
+      "pending": "Pending",
+      "failed": "Failed",
+      "succeeded": "Succeeded"
+    }
+  },
+  "pods": {
+    "title": "Pods",
+    "breadcrumb": "Workloads",
+    "summary": {
+      "total": "Total",
+      "running": "Running",
+      "failing": "Failing"
+    },
+    "columns": {
+      "name": "Name",
+      "namespace": "Namespace",
+      "status": "Status",
+      "ready": "Ready",
+      "restarts": "Restarts",
+      "node": "Node",
+      "age": "Age"
+    },
+    "status": {
+      "running": "Running",
+      "pending": "Pending",
+      "succeeded": "Succeeded",
+      "failed": "Failed",
+      "crashLoopBackOff": "CrashLoopBackOff",
+      "terminating": "Terminating",
+      "unknown": "Unknown"
+    }
+  },
+  "nodes": {
+    "title": "Nodes",
+    "breadcrumb": "Cluster",
+    "metrics": {
+      "cpu": "CPU",
+      "memory": "Memory",
+      "pods": "Pods",
+      "age": "Age",
+      "ip": "IP"
+    },
+    "status": {
+      "ready": "Ready",
+      "notReady": "Not Ready",
+      "schedulingDisabled": "Scheduling Disabled"
+    }
+  },
+  "placeholder": {
+    "status": "STATUS / PENDING_IMPLEMENTATION",
+    "terminalLabel": "kubectl — status",
+    "feature": "feature",
+    "backend": "backend",
+    "ui": "ui",
+    "scaffolded": "SCAFFOLDED",
+    "pending": "PENDING",
+    "ready": "READY",
+    "events": {
+      "title": "Events",
+      "breadcrumb": "Overview",
+      "description": "Real-time cluster events stream via SSE. Will show warnings, errors, and state transitions as they happen."
+    },
+    "namespaces": {
+      "title": "Namespaces",
+      "breadcrumb": "Cluster",
+      "description": "Namespace inventory with resource counts, labels, and age. Supports quick filtering across the dashboard."
+    },
+    "deployments": {
+      "title": "Deployments",
+      "breadcrumb": "Workloads",
+      "description": "Deployment overview with replica status, rollout history, and image versions. Scale and restart actions will live here."
+    },
+    "services": {
+      "title": "Services",
+      "breadcrumb": "Network",
+      "description": "Service discovery view showing ClusterIP, NodePort, and LoadBalancer configurations with endpoint health."
+    },
+    "ingresses": {
+      "title": "Ingresses",
+      "breadcrumb": "Network",
+      "description": "Ingress rules, TLS certificates, and domain routing. Tracks which services are exposed externally."
+    }
+  },
+  "locale": {
+    "tr": "Türkçe",
+    "en": "English"
+  }
+}

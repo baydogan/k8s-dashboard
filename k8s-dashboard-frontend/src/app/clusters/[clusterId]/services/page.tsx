@@ -1,13 +1,15 @@
 import { Network } from "lucide-react";
 import { PlaceholderPage } from "@/shared/components/layout/placeholder-page";
+import { getTranslations } from "next-intl/server";
 
-export default function ServicesPage() {
+export default async function ServicesPage() {
+  const t = await getTranslations("placeholder.services");
   return (
     <PlaceholderPage
-      title="Services"
-      breadcrumbs={["Network"]}
+      title={t("title")}
+      breadcrumbs={[t("breadcrumb")]}
       icon={Network}
-      description="Service discovery view showing ClusterIP, NodePort, and LoadBalancer configurations with endpoint health."
+      description={t("description")}
     />
   );
 }

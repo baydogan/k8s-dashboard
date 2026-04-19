@@ -2,22 +2,21 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { FormEvent, useState } from "react";
+import { useState } from "react";
 import { ArrowRight, UserPlus } from "lucide-react";
 import { Input } from "@/shared/components/ui/input";
 import { Button } from "@/shared/components/ui/button";
 import { Logo } from "@/shared/components/ui/logo";
+import { useTranslations } from "next-intl";
 
 export default function RegisterPage() {
   const router = useRouter();
+  const t = useTranslations("auth.register");
+  const tc = useTranslations("common");
   const [loading, setLoading] = useState(false);
-  const [formData, setFormData] = useState({
-    email: "",
-    password: "",
-    confirmPassword: "",
-  });
+  const [formData, setFormData] = useState({ email: "", password: "", confirmPassword: "" });
 
-  async function handleSubmit(e: FormEvent) {
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setLoading(true);
     // TODO: integrate with backend /api/auth/register
@@ -30,10 +29,10 @@ export default function RegisterPage() {
     <div className="min-h-screen flex items-center justify-center p-6 relative">
       <div className="absolute top-6 left-6 flex items-center gap-2 text-[10px] font-mono text-text-dim">
         <span className="w-2 h-2 bg-accent rounded-full animate-pulse-dot" />
-        SYSTEM · READY
+        {tc("systemReady")}
       </div>
       <div className="absolute top-6 right-6 text-[10px] font-mono text-text-dim">
-        [AUTH / REGISTER / NEW]
+        {t("corner")}
       </div>
 
       <div className="w-full max-w-sm">
@@ -41,11 +40,11 @@ export default function RegisterPage() {
           <Logo showTag={false} className="scale-125 mb-8" />
           <div className="text-center">
             <h1 className="font-display text-2xl font-semibold text-text mb-2">
-              Create Account
+              {t("title")}
             </h1>
             <p className="text-sm text-text-muted font-mono">
               <UserPlus className="inline h-3 w-3 mr-1" />
-              provision_new_operator
+              {t("subtitle")}
             </p>
           </div>
         </div>
@@ -61,44 +60,38 @@ export default function RegisterPage() {
 
           <Input
             id="email"
-            label="Email"
+            label={t("emailLabel")}
             type="email"
-            placeholder="ops@k8s.internal"
+            placeholder={t("emailPlaceholder")}
             value={formData.email}
             onChange={(e) => setFormData({ ...formData, email: e.target.value })}
             required
           />
           <Input
             id="password"
-            label="Password"
+            label={t("passwordLabel")}
             type="password"
-            placeholder="min. 8 characters"
+            placeholder={t("passwordPlaceholder")}
             value={formData.password}
             onChange={(e) => setFormData({ ...formData, password: e.target.value })}
             required
           />
           <Input
             id="confirmPassword"
-            label="Confirm Password"
+            label={t("confirmPasswordLabel")}
             type="password"
-            placeholder="••••••••••••"
+            placeholder={t("confirmPasswordPlaceholder")}
             value={formData.confirmPassword}
             onChange={(e) => setFormData({ ...formData, confirmPassword: e.target.value })}
             required
           />
 
-          <Button
-            type="submit"
-            variant="primary"
-            size="lg"
-            disabled={loading}
-            className="w-full"
-          >
+          <Button type="submit" variant="primary" size="lg" disabled={loading} className="w-full">
             {loading ? (
-              <span>PROVISIONING<span className="cursor-blink" /></span>
+              <span>{t("submitting")}<span className="cursor-blink" /></span>
             ) : (
               <>
-                <span>CREATE ACCOUNT</span>
+                <span>{t("submit")}</span>
                 <ArrowRight className="h-3.5 w-3.5" />
               </>
             )}
@@ -106,12 +99,9 @@ export default function RegisterPage() {
         </form>
 
         <p className="mt-6 text-center text-xs font-mono text-text-muted">
-          Already registered?{" "}
-          <Link
-            href="/login"
-            className="text-accent hover:text-accent/80 transition-colors"
-          >
-            Sign in →
+          {t("hasAccount")}{" "}
+          <Link href="/login" className="text-accent hover:text-accent/80 transition-colors">
+            {t("loginLink")} →
           </Link>
         </p>
       </div>

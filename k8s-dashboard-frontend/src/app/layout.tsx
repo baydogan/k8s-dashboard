@@ -2,19 +2,24 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { QueryProvider } from "@/shared/lib/query-provider";
 import { ThemeApplier } from "@/shared/components/layout/theme-applier";
+import { NextIntlClientProvider } from "next-intl";
+import { getLocale, getMessages } from "next-intl/server";
 
 export const metadata: Metadata = {
   title: "K8S Observer — Cluster Dashboard",
   description: "Observability dashboard for Kubernetes clusters with AI insights",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const locale = await getLocale();
+  const messages = await getMessages();
+
   return (
-    <html lang="en">
+    <html lang={locale}>
       <head>
         {/* Prevent flash of wrong theme on initial load */}
         <script
@@ -24,10 +29,12 @@ export default function RootLayout({
         />
       </head>
       <body className="min-h-screen antialiased">
-        <QueryProvider>
-          <ThemeApplier />
-          {children}
-        </QueryProvider>
+        <NextIntlClientProvider locale={locale} messages={messages}>
+          <QueryProvider>
+            <ThemeApplier />
+            {children}
+          </QueryProvider>
+        </NextIntlClientProvider>
       </body>
     </html>
   );
