@@ -1,13 +1,15 @@
 import { Globe } from "lucide-react";
 import { PlaceholderPage } from "@/shared/components/layout/placeholder-page";
+import { getTranslations } from "next-intl/server";
 
-export default function IngressesPage() {
+export default async function IngressesPage() {
+  const t = await getTranslations("placeholder.ingresses");
   return (
     <PlaceholderPage
-      title="Ingresses"
-      breadcrumbs={["Network"]}
+      title={t("title")}
+      breadcrumbs={[t("breadcrumb")]}
       icon={Globe}
-      description="Ingress rules, TLS certificates, and domain routing. Tracks which services are exposed externally."
+      description={t("description")}
     />
   );
 }

@@ -1,13 +1,15 @@
 import { Activity } from "lucide-react";
 import { PlaceholderPage } from "@/shared/components/layout/placeholder-page";
+import { getTranslations } from "next-intl/server";
 
-export default function EventsPage() {
+export default async function EventsPage() {
+  const t = await getTranslations("placeholder.events");
   return (
     <PlaceholderPage
-      title="Events"
-      breadcrumbs={["Overview"]}
+      title={t("title")}
+      breadcrumbs={[t("breadcrumb")]}
       icon={Activity}
-      description="Real-time cluster events stream via SSE. Will show warnings, errors, and state transitions as they happen."
+      description={t("description")}
     />
   );
 }

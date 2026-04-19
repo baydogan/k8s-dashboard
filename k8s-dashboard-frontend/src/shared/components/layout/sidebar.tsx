@@ -18,6 +18,7 @@ import {
 } from "lucide-react";
 import { cn } from "@/shared/lib/utils";
 import { Logo } from "@/shared/components/ui/logo";
+import { useTranslations } from "next-intl";
 
 interface NavItem {
   label: string;
@@ -34,46 +35,45 @@ interface NavGroup {
 export function Sidebar({ clusterId }: { clusterId: string }) {
   const pathname = usePathname();
   const base = `/clusters/${clusterId}`;
+  const t = useTranslations("nav");
 
   const groups: NavGroup[] = [
     {
-      label: "OVERVIEW",
+      label: t("groups.overview"),
       items: [
-        { label: "Dashboard", href: `${base}/overview`, icon: LayoutGrid },
-        { label: "Events", href: `${base}/events`, icon: Activity, badge: "LIVE" },
+        { label: t("items.dashboard"), href: `${base}/overview`, icon: LayoutGrid },
+        { label: t("items.events"), href: `${base}/events`, icon: Activity, badge: t("live") },
       ],
     },
     {
-      label: "WORKLOADS",
+      label: t("groups.workloads"),
       items: [
-        { label: "Pods", href: `${base}/pods`, icon: Box },
-        { label: "Deployments", href: `${base}/deployments`, icon: Boxes },
+        { label: t("items.pods"), href: `${base}/pods`, icon: Box },
+        { label: t("items.deployments"), href: `${base}/deployments`, icon: Boxes },
       ],
     },
     {
-      label: "CLUSTER",
+      label: t("groups.cluster"),
       items: [
-        { label: "Nodes", href: `${base}/nodes`, icon: Cpu },
-        { label: "Namespaces", href: `${base}/namespaces`, icon: Layers },
+        { label: t("items.nodes"), href: `${base}/nodes`, icon: Cpu },
+        { label: t("items.namespaces"), href: `${base}/namespaces`, icon: Layers },
       ],
     },
     {
-      label: "NETWORK",
+      label: t("groups.network"),
       items: [
-        { label: "Services", href: `${base}/services`, icon: Network },
-        { label: "Ingresses", href: `${base}/ingresses`, icon: Globe },
+        { label: t("items.services"), href: `${base}/services`, icon: Network },
+        { label: t("items.ingresses"), href: `${base}/ingresses`, icon: Globe },
       ],
     },
   ];
 
   return (
     <aside className="w-60 shrink-0 border-r border-border bg-bg-raised/50 flex flex-col">
-      {/* Logo section */}
       <div className="h-14 px-4 border-b border-border flex items-center">
         <Logo />
       </div>
 
-      {/* Cluster switcher */}
       <Link
         href="/clusters"
         className={cn(
@@ -86,7 +86,7 @@ export function Sidebar({ clusterId }: { clusterId: string }) {
           <span className="h-2 w-2 bg-accent rounded-full animate-pulse-dot shrink-0" />
           <div className="flex flex-col min-w-0">
             <span className="text-[9px] font-mono tracking-[0.2em] text-text-dim uppercase">
-              Active Cluster
+              {t("activeCluster")}
             </span>
             <span className="text-xs font-mono text-text truncate">
               production-eu-west-1
@@ -96,7 +96,6 @@ export function Sidebar({ clusterId }: { clusterId: string }) {
         <ChevronsUpDown className="h-3.5 w-3.5 text-text-muted group-hover:text-accent transition-colors shrink-0" />
       </Link>
 
-      {/* Nav groups */}
       <nav className="flex-1 overflow-y-auto py-3">
         {groups.map((group) => (
           <div key={group.label} className="mb-5">
@@ -141,7 +140,6 @@ export function Sidebar({ clusterId }: { clusterId: string }) {
           </div>
         ))}
 
-        {/* AI section */}
         <div className="px-3 mt-6">
           <div className="p-3 border border-border rounded-sm bg-gradient-to-br from-accent/5 via-bg-raised to-bg-raised relative overflow-hidden">
             <div className="absolute top-0 right-0 w-20 h-20 bg-accent/5 rounded-full blur-2xl" />
@@ -149,28 +147,27 @@ export function Sidebar({ clusterId }: { clusterId: string }) {
               <div className="flex items-center gap-2 mb-2">
                 <Sparkles className="h-3.5 w-3.5 text-accent" />
                 <span className="text-[10px] font-mono tracking-[0.15em] text-text uppercase">
-                  AI Assistant
+                  {t("ai.title")}
                 </span>
               </div>
               <p className="text-[10px] text-text-muted leading-relaxed mb-3">
-                Query your cluster in natural language
+                {t("ai.description")}
               </p>
               <button className="w-full h-7 flex items-center justify-center gap-1.5 bg-accent/10 border border-accent/30 text-accent text-[10px] font-mono hover:bg-accent/20 transition-colors rounded-sm">
                 <Zap className="h-3 w-3" />
-                ASK ASSISTANT
+                {t("ai.button")}
               </button>
             </div>
           </div>
         </div>
       </nav>
 
-      {/* Footer */}
       <div className="px-4 py-3 border-t border-border">
         <div className="flex items-center justify-between text-[9px] font-mono text-text-dim">
-          <span>API v1.28.3</span>
+          <span>{t("footer.apiVersion", { version: "1.28.3" })}</span>
           <span className="flex items-center gap-1.5">
             <span className="h-1.5 w-1.5 bg-accent rounded-full" />
-            CONNECTED
+            {t("footer.connected")}
           </span>
         </div>
       </div>
