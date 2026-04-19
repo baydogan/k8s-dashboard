@@ -1,0 +1,141 @@
+@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600&family=IBM+Plex+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─── Dark theme (default) ─── */
+:root {
+  --color-bg: 10 14 19;
+  --color-bg-raised: 15 20 27;
+  --color-bg-sunken: 6 10 14;
+  --color-border: 26 34 48;
+  --color-border-strong: 37 49 66;
+  --color-text: 212 221 232;
+  --color-text-muted: 107 122 143;
+  --color-text-dim: 61 74 92;
+  --color-accent: 92 225 168;
+  --color-accent-warn: 245 176 86;
+  --color-accent-crit: 239 106 126;
+  --color-accent-info: 106 177 240;
+
+  --grid-line: rgba(37, 49, 66, 0.3);
+  --scanline: rgba(92, 225, 168, 0.02);
+  --scrollbar-track: #060a0e;
+  --scrollbar-thumb: #1a2230;
+  --scrollbar-thumb-hover: #253142;
+  --cursor-color: #5ce1a8;
+  --selection-bg: rgba(92, 225, 168, 0.25);
+  --selection-text: #d4dde8;
+}
+
+/* ─── Light theme ─── */
+html.light {
+  --color-bg: 248 250 252;
+  --color-bg-raised: 255 255 255;
+  --color-bg-sunken: 241 245 249;
+  --color-border: 203 213 225;
+  --color-border-strong: 148 163 184;
+  --color-text: 15 23 42;
+  --color-text-muted: 100 116 139;
+  --color-text-dim: 148 163 184;
+  --color-accent: 16 185 129;
+  --color-accent-warn: 217 119 6;
+  --color-accent-crit: 220 38 38;
+  --color-accent-info: 37 99 235;
+
+  --grid-line: rgba(148, 163, 184, 0.2);
+  --scanline: transparent;
+  --scrollbar-track: #f1f5f9;
+  --scrollbar-thumb: #cbd5e1;
+  --scrollbar-thumb-hover: #94a3b8;
+  --cursor-color: #10b981;
+  --selection-bg: rgba(16, 185, 129, 0.2);
+  --selection-text: #0f172a;
+}
+
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html,
+body {
+  background: rgb(var(--color-bg));
+  color: rgb(var(--color-text));
+  font-family: "IBM Plex Sans", system-ui, sans-serif;
+  font-feature-settings: "ss01", "cv01";
+  transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+/* Background grid for industrial feel */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
+  background-size: 32px 32px;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.4;
+}
+
+/* Subtle scanline texture */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    var(--scanline),
+    var(--scanline) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Ensure content renders above background layers */
+#__next,
+main,
+body > div {
+  position: relative;
+  z-index: 1;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--scrollbar-track);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-thumb);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--scrollbar-thumb-hover);
+}
+
+/* Terminal cursor blink */
+@keyframes blink {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+.cursor-blink::after {
+  content: "_";
+  animation: blink 1s step-end infinite;
+  color: var(--cursor-color);
+  margin-left: 2px;
+}
+
+/* Selection */
+::selection {
+  background: var(--selection-bg);
+  color: var(--selection-text);
+}
