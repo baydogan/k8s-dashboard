@@ -4,6 +4,7 @@ import { Card } from "@/shared/components/ui/card";
 import { Badge } from "@/shared/components/ui/badge";
 import { StatusDot } from "@/shared/components/ui/status-dot";
 import { getNodes } from "@/services/node-service";
+import { getTranslations } from "next-intl/server";
 
 interface NodesPageProps {
   params: Promise<{ clusterId: string }>;
@@ -18,10 +19,11 @@ function usageColor(value: number): string {
 export default async function NodesPage({ params }: NodesPageProps) {
   const { clusterId } = await params;
   const nodes = await getNodes(clusterId);
+  const t = await getTranslations("nodes");
 
   return (
     <>
-      <Header title="Nodes" breadcrumbs={["Cluster"]} />
+      <Header title={t("title")} breadcrumbs={[t("breadcrumb")]} />
       <PageContainer>
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
           {nodes.map((node, i) => (
@@ -30,13 +32,10 @@ export default async function NodesPage({ params }: NodesPageProps) {
               className="p-5 animate-slide-up hover:border-accent/40 transition-all"
               style={{ animationDelay: `${i * 50}ms` }}
             >
-              {/* Header */}
               <div className="flex items-start justify-between mb-4">
                 <div className="min-w-0 flex-1">
                   <div className="flex items-center gap-2 mb-1.5">
-                    <StatusDot
-                      status={node.status === "Ready" ? "healthy" : "critical"}
-                    />
+                    <StatusDot status={node.status === "Ready" ? "healthy" : "critical"} />
                     <Badge variant={node.status === "Ready" ? "success" : "critical"}>
                       {node.status}
                     </Badge>
@@ -54,50 +53,42 @@ export default async function NodesPage({ params }: NodesPageProps) {
                 </div>
               </div>
 
-              {/* Metrics */}
               <div className="space-y-3 mb-4">
                 <div>
                   <div className="flex items-center justify-between mb-1">
                     <span className="text-[10px] font-mono tracking-wider text-text-muted uppercase">
-                      CPU
+                      {t("metrics.cpu")}
                     </span>
                     <span className="font-mono text-xs text-text">{node.cpuUsage}%</span>
                   </div>
                   <div className="h-1 bg-bg-sunken rounded-full overflow-hidden">
-                    <div
-                      className={`h-full transition-all ${usageColor(node.cpuUsage)}`}
-                      style={{ width: `${node.cpuUsage}%` }}
-                    />
+                    <div className={`h-full transition-all ${usageColor(node.cpuUsage)}`} style={{ width: `${node.cpuUsage}%` }} />
                   </div>
                 </div>
                 <div>
                   <div className="flex items-center justify-between mb-1">
                     <span className="text-[10px] font-mono tracking-wider text-text-muted uppercase">
-                      Memory
+                      {t("metrics.memory")}
                     </span>
                     <span className="font-mono text-xs text-text">{node.memoryUsage}%</span>
                   </div>
                   <div className="h-1 bg-bg-sunken rounded-full overflow-hidden">
-                    <div
-                      className={`h-full transition-all ${usageColor(node.memoryUsage)}`}
-                      style={{ width: `${node.memoryUsage}%` }}
-                    />
+                    <div className={`h-full transition-all ${usageColor(node.memoryUsage)}`} style={{ width: `${node.memoryUsage}%` }} />
                   </div>
                 </div>
               </div>
 
-              {/* Footer stats */}
               <div className="pt-3 border-t border-border grid grid-cols-3 gap-2 text-[10px] font-mono">
                 <div>
-                  <div className="text-text-dim">Pods</div>
+                  <div className="text-text-dim">{t("metrics.pods")}</div>
                   <div className="text-text mt-0.5">{node.podCount}</div>
                 </div>
                 <div>
-                  <div className="text-text-dim">Age</div>
+                  <div className="text-text-dim">{t("metrics.age")}</div>
                   <div className="text-text mt-0.5">{node.age}</div>
                 </div>
                 <div>
-                  <div className="text-text-dim">IP</div>
+                  <div className="text-text-dim">{t("metrics.ip")}</div>
                   <div className="text-text mt-0.5 truncate">{node.internalIP}</div>
                 </div>
               </div>

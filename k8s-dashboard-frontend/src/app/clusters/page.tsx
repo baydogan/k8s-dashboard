@@ -7,9 +7,12 @@ import { Badge } from "@/shared/components/ui/badge";
 import { EmptyState } from "@/shared/components/ui/empty-state";
 import { getClusters } from "@/services/cluster-service";
 import { ThemeToggle } from "@/shared/components/ui/theme-toggle";
+import { LocaleToggle } from "@/shared/components/ui/locale-toggle";
+import { getTranslations } from "next-intl/server";
 
 export default async function ClustersPage() {
   const clusters = await getClusters();
+  const t = await getTranslations("clusters");
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -21,6 +24,7 @@ export default async function ClustersPage() {
             <span className="h-1.5 w-1.5 bg-accent rounded-full animate-pulse-dot" />
             API · ONLINE
           </span>
+          <LocaleToggle />
           <ThemeToggle />
         </div>
       </div>
@@ -32,20 +36,19 @@ export default async function ClustersPage() {
           <div>
             <div className="flex items-center gap-2 text-[10px] font-mono text-text-dim tracking-[0.2em] mb-3">
               <span className="w-6 h-px bg-accent" />
-              REGISTERED / CLUSTERS
+              {t("list.breadcrumb")}
             </div>
             <h1 className="font-display text-3xl font-semibold text-text mb-1">
-              Select a cluster
+              {t("list.title")}
             </h1>
             <p className="text-sm text-text-muted max-w-lg">
-              Choose a Kubernetes cluster to observe, or register a new one by
-              uploading a kubeconfig.
+              {t("list.description")}
             </p>
           </div>
           <Link href="/clusters/new">
             <Button variant="primary" size="lg">
               <Plus className="h-4 w-4" />
-              ADD CLUSTER
+              {t("list.addButton")}
             </Button>
           </Link>
         </div>
@@ -54,13 +57,13 @@ export default async function ClustersPage() {
         {clusters.length === 0 ? (
           <EmptyState
             icon={Cpu}
-            title="No clusters registered"
-            description="Add your first Kubernetes cluster by uploading its kubeconfig file."
+            title={t("list.empty.title")}
+            description={t("list.empty.description")}
             action={
               <Link href="/clusters/new">
                 <Button variant="primary">
                   <Plus className="h-4 w-4" />
-                  REGISTER CLUSTER
+                  {t("list.empty.action")}
                 </Button>
               </Link>
             }
@@ -91,7 +94,7 @@ export default async function ClustersPage() {
                         {cluster.name}
                       </h3>
                       <p className="text-[10px] font-mono text-text-dim mt-1">
-                        {cluster.version} · registered {cluster.createdAt}
+                        {cluster.version} · {t("list.card.registered")} {cluster.createdAt}
                       </p>
                     </div>
                     <ArrowUpRight className="h-4 w-4 text-text-muted group-hover:text-accent transition-colors shrink-0" />
@@ -103,7 +106,7 @@ export default async function ClustersPage() {
                       <div className="flex items-center gap-1 mb-1">
                         <Cpu className="h-2.5 w-2.5 text-text-dim" />
                         <span className="text-[9px] font-mono tracking-wider text-text-dim uppercase">
-                          Nodes
+                          {t("list.card.nodes")}
                         </span>
                       </div>
                       <div className="font-display text-xl text-text">{cluster.nodeCount}</div>
@@ -112,7 +115,7 @@ export default async function ClustersPage() {
                       <div className="flex items-center gap-1 mb-1">
                         <Box className="h-2.5 w-2.5 text-text-dim" />
                         <span className="text-[9px] font-mono tracking-wider text-text-dim uppercase">
-                          Pods
+                          {t("list.card.pods")}
                         </span>
                       </div>
                       <div className="font-display text-xl text-text">{cluster.podCount}</div>
@@ -121,7 +124,7 @@ export default async function ClustersPage() {
                       <div className="flex items-center gap-1 mb-1">
                         <Layers className="h-2.5 w-2.5 text-text-dim" />
                         <span className="text-[9px] font-mono tracking-wider text-text-dim uppercase">
-                          Ns
+                          {t("list.card.namespaces")}
                         </span>
                       </div>
                       <div className="font-display text-xl text-text">
@@ -144,9 +147,9 @@ export default async function ClustersPage() {
                   <Plus className="h-4 w-4 text-text-muted group-hover:text-accent transition-colors" />
                 </div>
                 <div className="text-center">
-                  <div className="font-mono text-xs text-text">Register cluster</div>
+                  <div className="font-mono text-xs text-text">{t("list.registerCard")}</div>
                   <div className="font-mono text-[10px] text-text-dim mt-1">
-                    upload kubeconfig
+                    {t("list.registerCardHint")}
                   </div>
                 </div>
               </div>

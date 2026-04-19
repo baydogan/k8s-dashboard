@@ -5,6 +5,7 @@ import { StatusDot } from "@/shared/components/ui/status-dot";
 import { Badge } from "@/shared/components/ui/badge";
 import { Activity, Box, Cpu, Layers, TrendingUp } from "lucide-react";
 import { getOverview } from "@/services/overview-service";
+import { getTranslations } from "next-intl/server";
 
 interface OverviewPageProps {
   params: Promise<{ clusterId: string }>;
@@ -15,22 +16,23 @@ const STAT_ICONS = [Cpu, Box, Layers, Activity];
 export default async function OverviewPage({ params }: OverviewPageProps) {
   const { clusterId } = await params;
   const { stats, recentEvents, resourceMetrics, workloads } = await getOverview(clusterId);
+  const t = await getTranslations("overview");
 
   return (
     <>
-      <Header title="Overview" breadcrumbs={["Cluster", clusterId]} />
+      <Header title={t("title")} breadcrumbs={[t("breadcrumb"), clusterId]} />
       <PageContainer>
         {/* Intro section */}
         <section className="mb-6">
           <div className="flex items-center gap-2 text-[10px] font-mono text-text-dim tracking-[0.2em] mb-2">
             <span className="w-4 h-px bg-accent" />
-            CLUSTER STATE
+            {t("stateLabel")}
           </div>
           <h2 className="font-display text-2xl font-semibold text-text mb-1">
-            All systems operational
+            {t("allOperational")}
           </h2>
           <p className="text-sm text-text-muted">
-            Last synced {new Date().toLocaleTimeString()} · API responsive
+            {t("lastSynced", { time: new Date().toLocaleTimeString() })}
           </p>
         </section>
 
@@ -77,10 +79,10 @@ export default async function OverviewPage({ params }: OverviewPageProps) {
           {/* Recent events */}
           <Card className="lg:col-span-2">
             <CardHeader>
-              <CardTitle>Recent Events</CardTitle>
+              <CardTitle>{t("recentEvents.title")}</CardTitle>
               <Badge variant="info">
                 <span className="h-1.5 w-1.5 bg-accent-info rounded-full animate-pulse-dot" />
-                LIVE
+                {t("recentEvents.live")}
               </Badge>
             </CardHeader>
             <div className="divide-y divide-border">
@@ -121,7 +123,7 @@ export default async function OverviewPage({ params }: OverviewPageProps) {
           {/* Resource snapshot */}
           <Card>
             <CardHeader>
-              <CardTitle>Resource Summary</CardTitle>
+              <CardTitle>{t("resources.title")}</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
               {resourceMetrics.map((metric) => (
@@ -146,24 +148,24 @@ export default async function OverviewPage({ params }: OverviewPageProps) {
               <div className="pt-3 border-t border-border">
                 <div className="flex items-center justify-between mb-2">
                   <span className="text-[10px] font-mono tracking-wider text-text-muted uppercase">
-                    Workloads
+                    {t("resources.workloads")}
                   </span>
                 </div>
                 <div className="grid grid-cols-2 gap-2 text-xs font-mono">
                   <div className="flex justify-between">
-                    <span className="text-text-muted">Running</span>
+                    <span className="text-text-muted">{t("resources.running")}</span>
                     <span className="text-accent">{workloads.running}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-text-muted">Pending</span>
+                    <span className="text-text-muted">{t("resources.pending")}</span>
                     <span className="text-accent-warn">{workloads.pending}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-text-muted">Failed</span>
+                    <span className="text-text-muted">{t("resources.failed")}</span>
                     <span className="text-accent-crit">{workloads.failed}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-text-muted">Succeeded</span>
+                    <span className="text-text-muted">{t("resources.succeeded")}</span>
                     <span className="text-text">{workloads.succeeded}</span>
                   </div>
                 </div>
