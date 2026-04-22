@@ -1,0 +1,88 @@
+graph TB
+    %% ═══════════════════════════════════════════════════════════
+    %% K8S OBSERVER · COMPONENT DIAGRAM
+    %% System-level view with external dependencies
+    %% ═══════════════════════════════════════════════════════════
+
+    %% ─── CLIENT SIDE ───
+    subgraph Client["◀ CLIENT · Browser"]
+        direction TB
+        NextJS["Next.js Dashboard<br/><i>Next.js 15 · TypeScript</i>"]
+        ClientState["Client State<br/><i>TanStack Query · Zustand</i>"]
+        LocalStorage[("LocalStorage<br/><i>JWT · Preferences</i>")]
+
+        NextJS -.-> ClientState
+        NextJS -.-> LocalStorage
+    end
+
+    %% ─── SERVER SIDE ───
+    subgraph Server["◆ SERVER · Spring Boot Monolith"]
+        direction TB
+
+        subgraph Controllers["Inbound Adapters"]
+            AuthCtrl["Auth Module<br/><i>Spring Security · JWT</i>"]
+            ClusterCtrl["Cluster Module<br/><i>REST · SSE</i>"]
+            K8sCtrl["Kubernetes Module<br/><i>Fabric8</i>"]
+            EventCtrl["Event Stream Module<br/><i>SSE · Watch</i>"]
+            AICtrl["AI Module<br/><i>LangChain4j</i>"]
+        end
+
+        subgraph Core["Shared Components"]
+            Facade["ClusterFacade<br/><i>Client Cache</i>"]
+            Encryption["EncryptionService<br/><i>AES-256-GCM</i>"]
+            Actuator["Actuator<br/><i>Health · Metrics</i>"]
+        end
+
+        AuthCtrl --> Encryption
+        ClusterCtrl --> Encryption
+        ClusterCtrl --> Facade
+        K8sCtrl --> Facade
+        EventCtrl --> Facade
+        AICtrl --> Facade
+    end
+
+    %% ─── DATA STORE ───
+    subgraph Data["▼ DATA PERSISTENCE"]
+        MongoDB[("MongoDB 7<br/><i>users · clusters</i>")]
+    end
+
+    %% ─── EXTERNAL SYSTEMS ───
+    subgraph External["◈ EXTERNAL SYSTEMS"]
+        K8sAPI["Kubernetes API<br/><i>User's cluster(s)</i>"]
+        ClaudeAPI["Claude API<br/><i>Anthropic Messages</i>"]
+    end
+
+    %% ═══════════════════════════════════════════════════════════
+    %% CLIENT → SERVER CONNECTIONS
+    %% ═══════════════════════════════════════════════════════════
+    NextJS -->|"HTTPS · JSON"| AuthCtrl
+    NextJS -->|"HTTPS · JWT"| ClusterCtrl
+    NextJS -->|"HTTPS · JWT"| K8sCtrl
+    NextJS <-.->|"SSE · text/event-stream"| EventCtrl
+    NextJS -->|"HTTPS · SSE"| AICtrl
+
+    %% ═══════════════════════════════════════════════════════════
+    %% SERVER → DATA
+    %% ═══════════════════════════════════════════════════════════
+    AuthCtrl -->|"MongoDB protocol"| MongoDB
+    ClusterCtrl -->|"MongoDB protocol"| MongoDB
+
+    %% ═══════════════════════════════════════════════════════════
+    %% SERVER → EXTERNAL
+    %% ═══════════════════════════════════════════════════════════
+    Facade -->|"HTTPS · bearer token"| K8sAPI
+    EventCtrl <-.->|"WebSocket · Watch"| K8sAPI
+    AICtrl -->|"HTTPS · API key"| ClaudeAPI
+
+    %% ═══════════════════════════════════════════════════════════
+    %% STYLING
+    %% ═══════════════════════════════════════════════════════════
+    classDef clientStyle fill:#dbeafe,stroke:#3b82f6,stroke-width:2px,color:#1e40af
+    classDef serverStyle fill:#d1fae5,stroke:#10b981,stroke-width:2px,color:#047857
+    classDef dataStyle fill:#fef3c7,stroke:#f59e0b,stroke-width:2px,color:#b45309
+    classDef externalStyle fill:#ede9fe,stroke:#8b5cf6,stroke-width:2px,color:#6d28d9
+
+    class NextJS,ClientState,LocalStorage clientStyle
+    class AuthCtrl,ClusterCtrl,K8sCtrl,EventCtrl,AICtrl,Facade,Encryption,Actuator serverStyle
+    class MongoDB dataStyle
+    class K8sAPI,ClaudeAPI externalStyle

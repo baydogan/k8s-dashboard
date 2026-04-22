@@ -1,0 +1,243 @@
+classDiagram
+    %% ═══════════════════════════════════════════════════════════
+    %% K8S OBSERVER · CLASS DIAGRAM
+    %% Hexagonal Architecture — Backend Structure
+    %% ═══════════════════════════════════════════════════════════
+
+    %% ─── Controllers (Inbound Adapters) ───
+    class AuthController {
+        -authService: AuthService
+        +register(req) JwtResponse
+        +login(req) JwtResponse
+    }
+
+    class ClusterController {
+        -clusterService: ClusterService
+        +list(user) List~ClusterDTO~
+        +create(req, user) ClusterDTO
+        +delete(id, user) void
+    }
+
+    class PodController {
+        -podService: PodService
+        +list(clusterId, ns) List~PodDTO~
+        +get(clusterId, ns, name) PodDTO
+        +streamLogs(...) SseEmitter
+    }
+
+    class NodeController {
+        -nodeService: NodeService
+        +list(clusterId) List~NodeDTO~
+    }
+
+    class EventStreamController {
+        -watchManager: PodWatchManager
+        +subscribe(clusterId) SseEmitter
+    }
+
+    class AIController {
+        -aiService: AIService
+        +analyzeLogs(req) SseEmitter
+        +chat(msg, ctx) String
+    }
+
+    %% ─── Application Services ───
+    class AuthService {
+        -userRepo: UserRepository
+        -jwtService: JwtService
+        -passwordEncoder: PasswordEncoder
+        +register(req) JwtResponse
+        +login(req) JwtResponse
+    }
+
+    class ClusterService {
+        -clusterRepo: ClusterRepository
+        -encryption: EncryptionService
+        -facade: ClusterFacade
+        +create(req, userId) Cluster
+        +listByOwner(userId) List~Cluster~
+        +delete(id, userId) void
+    }
+
+    class PodService {
+        -kubernetesPort: KubernetesPort
+        -clusterAuth: ClusterAuthService
+        +getPods(user, clusterId, ns)
+        +streamLogs(user, clusterId, ...)
+    }
+
+    class NodeService {
+        -kubernetesPort: KubernetesPort
+        -clusterAuth: ClusterAuthService
+        +getNodes(user, clusterId)
+    }
+
+    class AIService {
+        -aiPort: AIPort
+        -kubernetesPort: KubernetesPort
+        +analyzeLogs(req)
+        +chat(msg, ctx) String
+    }
+
+    class PodWatchManager {
+        -kubernetesPort: KubernetesPort
+        -watches: Map~UUID, Watch~
+        -subscribers: Map~UUID, List~SseEmitter~~
+        +subscribe(clusterId) SseEmitter
+        -fanOut(clusterId, event) void
+    }
+
+    class ClusterAuthService {
+        -clusterRepo: ClusterRepository
+        +assertOwnership(user, id) void
+        +isOwner(user, id) boolean
+    }
+
+    class ClusterFacade {
+        -clientCache: ConcurrentMap
+        -clusterRepo: ClusterRepository
+        +getClient(clusterId) KubernetesClient
+        +evict(clusterId) void
+    }
+
+    class EncryptionService {
+        -masterKey: SecretKey
+        +encrypt(plaintext) String
+        +decrypt(ciphertext) String
+    }
+
+    %% ─── Ports (Interfaces) ───
+    class KubernetesPort {
+        <<interface>>
+        +listPods(clusterId, ns) List~Pod~
+        +streamLogs(...) LogStream
+        +listNodes(clusterId) List~Node~
+        +watchPods(clusterId, handler) Watch
+    }
+
+    class AIPort {
+        <<interface>>
+        +analyze(prompt, context) String
+        +analyzeStream(prompt, ctx) Stream
+        +toolUse(msg, tools) Response
+    }
+
+    class ClusterRepository {
+        <<interface>>
+        +save(cluster) Cluster
+        +findByIdAndOwner(id, ownerId) Optional
+        +findAllByOwner(userId) List
+    }
+
+    class UserRepository {
+        <<interface>>
+        +save(user) User
+        +findByEmail(email) Optional
+    }
+
+    %% ─── Entities ───
+    class User {
+        -id: UUID
+        -email: String
+        -passwordHash: String
+        -createdAt: Instant
+    }
+
+    class Cluster {
+        -id: UUID
+        -ownerId: UUID
+        -name: String
+        -encryptedKubeconfig: String
+        -createdAt: Instant
+    }
+
+    class Pod {
+        -name: String
+        -namespace: String
+        -status: PodStatus
+        -restartCount: int
+    }
+
+    class Node {
+        -name: String
+        -status: NodeStatus
+        -cpuUsage: double
+        -memoryUsage: double
+    }
+
+    %% ─── Adapters (Implementations) ───
+    class Fabric8KubernetesAdapter {
+        -facade: ClusterFacade
+        -podMapper: PodMapper
+        +listPods(...) List~Pod~
+        +watchPods(...) Watch
+    }
+
+    class AnthropicAIAdapter {
+        -chatModel: AnthropicChatModel
+        -apiKey: String
+        +analyze(...) String
+        +toolUse(...) Response
+    }
+
+    class MongoClusterRepository {
+        +findByIdAndOwner(...) Optional
+        +findAllByOwner(userId) List
+    }
+
+    class MongoUserRepository {
+        +findByEmail(email) Optional
+    }
+
+    class JwtService {
+        -secret: String
+        -ttl: Duration
+        +generate(user) String
+        +validate(token) boolean
+    }
+
+    %% ═══════════════════════════════════════════════════════════
+    %% RELATIONSHIPS
+    %% ═══════════════════════════════════════════════════════════
+
+    %% Controllers use Services
+    AuthController --> AuthService : uses
+    ClusterController --> ClusterService : uses
+    PodController --> PodService : uses
+    NodeController --> NodeService : uses
+    EventStreamController --> PodWatchManager : uses
+    AIController --> AIService : uses
+
+    %% Services use Ports (not concrete adapters!)
+    AuthService --> UserRepository : uses
+    AuthService --> JwtService : uses
+    ClusterService --> ClusterRepository : uses
+    ClusterService --> EncryptionService : uses
+    ClusterService --> ClusterFacade : uses
+    PodService --> KubernetesPort : uses
+    PodService --> ClusterAuthService : uses
+    NodeService --> KubernetesPort : uses
+    NodeService --> ClusterAuthService : uses
+    AIService --> AIPort : uses
+    AIService --> KubernetesPort : uses
+    PodWatchManager --> KubernetesPort : uses
+    ClusterAuthService --> ClusterRepository : uses
+    ClusterFacade --> ClusterRepository : uses
+
+    %% Adapters implement Ports (dotted line = realization)
+    Fabric8KubernetesAdapter ..|> KubernetesPort : implements
+    AnthropicAIAdapter ..|> AIPort : implements
+    MongoClusterRepository ..|> ClusterRepository : implements
+    MongoUserRepository ..|> UserRepository : implements
+
+    %% Adapters use Infrastructure
+    Fabric8KubernetesAdapter --> ClusterFacade : uses
+
+    %% Entity relationships
+    Cluster "many" --> "1" User : owned by
+
+    %% Repositories work with Entities
+    UserRepository ..> User : manages
+    ClusterRepository ..> Cluster : manages
+    KubernetesPort ..> Pod : returns
+    KubernetesPort ..> Node : returns

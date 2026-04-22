@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>K8s Observer — Architecture Diagrams</title>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, 'Segoe UI', system-ui, sans-serif;
+    background: #fafbfc;
+    color: #1e293b;
+    padding: 32px;
+    line-height: 1.6;
+  }
+  .container { max-width: 1400px; margin: 0 auto; }
+
+  h1 {
+    font-size: 22px;
+    color: #1e293b;
+    margin-bottom: 8px;
+    font-weight: 600;
+  }
+  h1 .accent { color: #3b82f6; }
+
+  .subtitle {
+    color: #64748b;
+    font-size: 13px;
+    margin-bottom: 24px;
+  }
+
+  h2 {
+    font-size: 16px;
+    color: #0f172a;
+    margin: 40px 0 12px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #e2e8f0;
+    font-weight: 600;
+  }
+
+  h2 .num {
+    display: inline-block;
+    width: 26px; height: 26px;
+    background: #3b82f6;
+    color: white;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 26px;
+    font-size: 12px;
+    margin-right: 8px;
+  }
+
+  .info {
+    background: #eff6ff;
+    border-left: 3px solid #3b82f6;
+    padding: 12px 16px;
+    margin-bottom: 20px;
+    font-size: 13px;
+    color: #1e40af;
+    border-radius: 0 4px 4px 0;
+  }
+  .info code {
+    background: rgba(59,130,246,0.1);
+    padding: 1px 6px;
+    border-radius: 3px;
+    font-family: 'SF Mono', 'Courier New', monospace;
+    font-size: 12px;
+  }
+
+  .diagram-wrap {
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 24px;
+    overflow-x: auto;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+  }
+
+  .legend {
+    display: flex;
+    gap: 20px;
+    margin-top: 12px;
+    flex-wrap: wrap;
+    font-size: 12px;
+    color: #475569;
+    font-family: 'SF Mono', 'Courier New', monospace;
+  }
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .legend code {
+    background: #f1f5f9;
+    padding: 2px 6px;
+    border-radius: 3px;
+    color: #0f172a;
+    font-weight: 600;
+  }
+
+  .actions {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 28px;
+    flex-wrap: wrap;
+  }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: white;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    padding: 8px 14px;
+    font-size: 12px;
+    color: #334155;
+    text-decoration: none;
+    font-family: 'SF Mono', 'Courier New', monospace;
+    transition: all 0.15s;
+  }
+  .btn:hover {
+    background: #f8fafc;
+    border-color: #94a3b8;
+    color: #0f172a;
+  }
+  .btn.primary {
+    background: #3b82f6;
+    border-color: #3b82f6;
+    color: white;
+  }
+  .btn.primary:hover {
+    background: #2563eb;
+  }
+
+  footer {
+    margin-top: 48px;
+    padding-top: 20px;
+    border-top: 1px solid #e2e8f0;
+    font-size: 12px;
+    color: #94a3b8;
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+<h1>K8s Observer · <span class="accent">Architecture Diagrams</span></h1>
+<p class="subtitle">Mermaid syntax · Live render · Editable source</p>
+
+<div class="actions">
+  <a class="btn primary" href="https://mermaid.live" target="_blank">
+    ✎ Edit on mermaid.live
+  </a>
+  <a class="btn" href="https://mermaid.js.org/syntax/classDiagram.html" target="_blank">
+    📖 Class Diagram Docs
+  </a>
+  <a class="btn" href="https://mermaid.js.org/syntax/flowchart.html" target="_blank">
+    📖 Flowchart Docs
+  </a>
+</div>
+
+<div class="info">
+  <strong>Nasıl düzenlenir?</strong> Aşağıdaki diyagramların kaynak kodları <code>class-diagram.mmd</code> ve <code>component-diagram.mmd</code> dosyalarındadır. Dosyayı düzenleyince sayfayı yenilemek yeterli.
+  Canlı düzenleme için mermaid.live'ı kullan, sonra kodu dosyaya kaydet.
+</div>
+
+<!-- ═══════════════════════ CLASS DIAGRAM ═══════════════════════ -->
+<h2><span class="num">1</span>Class Diagram · Backend Hexagonal</h2>
+
+<div class="diagram-wrap">
+<pre class="mermaid">
+classDiagram
+    class AuthController {
+        +register(req) JwtResponse
+        +login(req) JwtResponse
+    }
+    class ClusterController {
+        +list(user) List~ClusterDTO~
+        +create(req, user) ClusterDTO
+    }
+    class PodController {
+        +list(clusterId, ns) List~PodDTO~
+        +streamLogs(...) SseEmitter
+    }
+    class NodeController {
+        +list(clusterId) List~NodeDTO~
+    }
+    class EventStreamController {
+        +subscribe(clusterId) SseEmitter
+    }
+    class AIController {
+        +analyzeLogs(req) SseEmitter
+        +chat(msg, ctx) String
+    }
+
+    class AuthService {
+        +register(req) JwtResponse
+        +login(req) JwtResponse
+    }
+    class ClusterService {
+        +create(req, userId) Cluster
+        +listByOwner(userId) List
+    }
+    class PodService {
+        +getPods(user, clusterId, ns)
+        +streamLogs(user, clusterId, ...)
+    }
+    class NodeService {
+        +getNodes(user, clusterId)
+    }
+    class AIService {
+        +analyzeLogs(req)
+        +chat(msg, ctx) String
+    }
+    class PodWatchManager {
+        -watches: Map
+        -subscribers: Map
+        +subscribe(clusterId) SseEmitter
+    }
+    class ClusterAuthService {
+        +assertOwnership(user, id)
+    }
+    class ClusterFacade {
+        -clientCache: ConcurrentMap
+        +getClient(clusterId) Client
+    }
+    class EncryptionService {
+        +encrypt(plaintext) String
+        +decrypt(ciphertext) String
+    }
+
+    class KubernetesPort {
+        &lt;&lt;interface&gt;&gt;
+        +listPods(clusterId, ns) List
+        +streamLogs(...) LogStream
+        +watchPods(clusterId, handler) Watch
+    }
+    class AIPort {
+        &lt;&lt;interface&gt;&gt;
+        +analyze(prompt, context) String
+        +toolUse(msg, tools) Response
+    }
+    class ClusterRepository {
+        &lt;&lt;interface&gt;&gt;
+        +save(cluster) Cluster
+        +findByIdAndOwner(id, ownerId)
+    }
+    class UserRepository {
+        &lt;&lt;interface&gt;&gt;
+        +findByEmail(email) Optional
+    }
+
+    class User {
+        -id: UUID
+        -email: String
+        -passwordHash: String
+    }
+    class Cluster {
+        -id: UUID
+        -ownerId: UUID
+        -name: String
+        -encryptedKubeconfig: String
+    }
+    class Pod {
+        -name: String
+        -namespace: String
+        -status: PodStatus
+    }
+    class Node {
+        -name: String
+        -status: NodeStatus
+    }
+
+    class Fabric8KubernetesAdapter
+    class AnthropicAIAdapter
+    class MongoClusterRepository
+    class MongoUserRepository
+    class JwtService
+
+    AuthController --> AuthService
+    ClusterController --> ClusterService
+    PodController --> PodService
+    NodeController --> NodeService
+    EventStreamController --> PodWatchManager
+    AIController --> AIService
+
+    AuthService --> UserRepository
+    AuthService --> JwtService
+    ClusterService --> ClusterRepository
+    ClusterService --> EncryptionService
+    ClusterService --> ClusterFacade
+    PodService --> KubernetesPort
+    PodService --> ClusterAuthService
+    NodeService --> KubernetesPort
+    AIService --> AIPort
+    AIService --> KubernetesPort
+    PodWatchManager --> KubernetesPort
+    ClusterAuthService --> ClusterRepository
+    ClusterFacade --> ClusterRepository
+
+    Fabric8KubernetesAdapter ..|> KubernetesPort
+    AnthropicAIAdapter ..|> AIPort
+    MongoClusterRepository ..|> ClusterRepository
+    MongoUserRepository ..|> UserRepository
+
+    Fabric8KubernetesAdapter --> ClusterFacade
+
+    Cluster "many" --> "1" User : owned by
+</pre>
+</div>
+
+<div class="legend">
+  <div class="legend-item"><code>--></code> uses (dependency)</div>
+  <div class="legend-item"><code>..|></code> implements (port realization)</div>
+  <div class="legend-item"><code>"many" --> "1"</code> cardinality</div>
+  <div class="legend-item"><code>&lt;&lt;interface&gt;&gt;</code> Port</div>
+</div>
+
+<!-- ═══════════════════════ COMPONENT DIAGRAM ═══════════════════════ -->
+<h2><span class="num">2</span>Component Diagram · System Overview</h2>
+
+<div class="diagram-wrap">
+<pre class="mermaid">
+graph TB
+    subgraph Client["◀ CLIENT"]
+        NextJS["Next.js Dashboard<br/>TypeScript"]
+        ClientState["TanStack Query<br/>Zustand"]
+        LocalStorage[("LocalStorage<br/>JWT")]
+
+        NextJS -.-> ClientState
+        NextJS -.-> LocalStorage
+    end
+
+    subgraph Server["◆ SPRING BOOT MONOLITH"]
+        subgraph Controllers["Controllers"]
+            AuthCtrl["Auth Module"]
+            ClusterCtrl["Cluster Module"]
+            K8sCtrl["Kubernetes Module"]
+            EventCtrl["Event Stream"]
+            AICtrl["AI Module"]
+        end
+
+        subgraph Core["Shared"]
+            Facade["ClusterFacade<br/>Client Cache"]
+            Encryption["Encryption<br/>AES-256-GCM"]
+        end
+
+        AuthCtrl --> Encryption
+        ClusterCtrl --> Encryption
+        ClusterCtrl --> Facade
+        K8sCtrl --> Facade
+        EventCtrl --> Facade
+        AICtrl --> Facade
+    end
+
+    subgraph Data["▼ DATA"]
+        MongoDB[("MongoDB 7<br/>users · clusters")]
+    end
+
+    subgraph External["◈ EXTERNAL"]
+        K8sAPI["Kubernetes API<br/>User clusters"]
+        ClaudeAPI["Claude API<br/>Anthropic"]
+    end
+
+    NextJS -->|HTTPS·JSON| AuthCtrl
+    NextJS -->|HTTPS·JWT| ClusterCtrl
+    NextJS -->|HTTPS·JWT| K8sCtrl
+    NextJS <-.->|SSE| EventCtrl
+    NextJS -->|HTTPS·SSE| AICtrl
+
+    AuthCtrl -->|MongoDB| MongoDB
+    ClusterCtrl -->|MongoDB| MongoDB
+
+    Facade -->|HTTPS·Bearer| K8sAPI
+    EventCtrl <-.->|WebSocket·Watch| K8sAPI
+    AICtrl -->|HTTPS·API-Key| ClaudeAPI
+
+    classDef client fill:#dbeafe,stroke:#3b82f6,stroke-width:2px
+    classDef server fill:#d1fae5,stroke:#10b981,stroke-width:2px
+    classDef data fill:#fef3c7,stroke:#f59e0b,stroke-width:2px
+    classDef external fill:#ede9fe,stroke:#8b5cf6,stroke-width:2px
+
+    class NextJS,ClientState,LocalStorage client
+    class AuthCtrl,ClusterCtrl,K8sCtrl,EventCtrl,AICtrl,Facade,Encryption server
+    class MongoDB data
+    class K8sAPI,ClaudeAPI external
+</pre>
+</div>
+
+<div class="legend">
+  <div class="legend-item"><code>--></code> request-response</div>
+  <div class="legend-item"><code>&lt;-.-&gt;</code> persistent stream (SSE / WS)</div>
+  <div class="legend-item"><code>|label|</code> protocol</div>
+</div>
+
+<footer>
+  K8s Observer · Architecture Diagrams · Mermaid v11 · Auto-rendered on load
+</footer>
+
+</div>
+
+<script>
+  mermaid.initialize({
+    startOnLoad: true,
+    theme: 'default',
+    themeVariables: {
+      primaryColor: '#eff6ff',
+      primaryTextColor: '#1e293b',
+      primaryBorderColor: '#3b82f6',
+      lineColor: '#64748b',
+      fontFamily: 'SF Mono, Courier New, monospace',
+      fontSize: '13px'
+    },
+    classDiagram: {
+      htmlLabels: true,
+      useMaxWidth: false
+    },
+    flowchart: {
+      curve: 'basis',
+      padding: 20,
+      useMaxWidth: false
+    }
+  });
+</script>
+
+</body>
+</html>
