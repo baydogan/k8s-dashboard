@@ -259,6 +259,9 @@
       "assistant": "Asistan"
     }
   },
+  "logo": {
+    "tag": "v0.1 · CLUSTER OPS"
+  },
   "locale": {
     "tr": "Türkçe",
     "en": "English"

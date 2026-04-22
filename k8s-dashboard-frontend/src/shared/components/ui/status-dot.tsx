@@ -9,18 +9,18 @@ interface StatusDotProps {
 }
 
 const statusStyles: Record<StatusType, string> = {
-  healthy: "bg-accent shadow-[0_0_8px_rgba(92,225,168,0.6)]",
-  warning: "bg-accent-warn shadow-[0_0_8px_rgba(245,176,86,0.6)]",
-  critical: "bg-accent-crit shadow-[0_0_8px_rgba(239,106,126,0.6)]",
+  healthy: "bg-accent",
+  warning: "bg-accent-warn",
+  critical: "bg-accent-crit",
   unknown: "bg-text-dim",
-  pending: "bg-accent-info shadow-[0_0_8px_rgba(106,177,240,0.6)]",
+  pending: "bg-accent-info",
 };
 
 export function StatusDot({ status, pulse = true, className }: StatusDotProps) {
   return (
     <span
       className={cn(
-        "inline-block h-2 w-2 rounded-full",
+        "inline-block h-2 w-2 rounded-full shrink-0",
         statusStyles[status],
         pulse && "animate-pulse-dot",
         className

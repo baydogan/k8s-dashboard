@@ -22,7 +22,7 @@ export function AiSuggestedPrompts({ onSelect }: AiSuggestedPromptsProps) {
 
   return (
     <div className="px-4 py-3 border-b border-border">
-      <p className="text-[9px] font-mono tracking-[0.2em] text-text-dim mb-2">
+      <p className="text-xs font-semibold text-text-dim uppercase tracking-wider mb-2.5">
         {t("suggestedQueries")}
       </p>
       <div className="flex flex-col gap-1.5">
@@ -33,13 +33,13 @@ export function AiSuggestedPrompts({ onSelect }: AiSuggestedPromptsProps) {
               key={p.labelKey}
               onClick={() => onSelect(p.query)}
               className={cn(
-                "flex items-center gap-2 px-2.5 py-1.5 rounded-sm border border-border",
-                "text-left text-[10px] font-mono text-text-muted",
-                "hover:border-accent/30 hover:bg-accent/5 hover:text-text",
+                "flex items-center gap-2.5 px-3 py-2 rounded-md border border-border",
+                "text-left text-sm text-text-muted",
+                "hover:border-border-strong hover:bg-bg-sunken hover:text-text",
                 "transition-all duration-150"
               )}
             >
-              {Icon && <Icon className="h-3 w-3 shrink-0 text-accent/60" />}
+              {Icon && <Icon className="h-3.5 w-3.5 shrink-0 text-text-dim" />}
               <span>{t(p.labelKey as any)}</span>
             </button>
           );

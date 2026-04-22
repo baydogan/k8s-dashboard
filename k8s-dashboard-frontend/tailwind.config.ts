@@ -30,8 +30,15 @@ const config: Config = {
       },
       fontFamily: {
         mono: ["JetBrains Mono", "ui-monospace", "monospace"],
-        display: ["IBM Plex Mono", "JetBrains Mono", "monospace"],
-        sans: ["IBM Plex Sans", "system-ui", "sans-serif"],
+        display: ["Inter", "system-ui", "sans-serif"],
+        sans: ["Inter", "system-ui", "sans-serif"],
+      },
+      boxShadow: {
+        card: "var(--shadow-card)",
+        dropdown: "var(--shadow-dropdown)",
+      },
+      borderRadius: {
+        panel: "6px",
       },
       animation: {
         "fade-in": "fadeIn 0.3s ease-out",
