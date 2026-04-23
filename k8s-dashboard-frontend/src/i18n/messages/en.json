@@ -201,6 +201,85 @@
       "schedulingDisabled": "Scheduling Disabled"
     }
   },
+  "events": {
+    "title": "Events",
+    "breadcrumb": "Overview",
+    "summary": {
+      "total": "Total",
+      "warnings": "Warnings",
+      "critical": "Critical"
+    },
+    "columns": {
+      "type": "Type",
+      "reason": "Reason",
+      "object": "Object",
+      "namespace": "Namespace",
+      "message": "Message",
+      "count": "Count",
+      "lastSeen": "Last Seen",
+      "age": "Age"
+    },
+    "type": {
+      "normal": "Normal",
+      "warning": "Warning",
+      "critical": "Critical"
+    },
+    "table": {
+      "show": "Show",
+      "all": "All",
+      "showing": "{shown} of {total}"
+    }
+  },
+  "namespaces": {
+    "title": "Namespaces",
+    "breadcrumb": "Cluster",
+    "summary": {
+      "total": "Total",
+      "active": "Active",
+      "terminating": "Terminating"
+    },
+    "columns": {
+      "name": "Name",
+      "status": "Status",
+      "pods": "Pods",
+      "deployments": "Deployments",
+      "services": "Services",
+      "labels": "Labels",
+      "age": "Age"
+    },
+    "status": {
+      "active": "Active",
+      "terminating": "Terminating"
+    },
+    "noLabels": "—"
+  },
+  "deployments": {
+    "title": "Deployments",
+    "breadcrumb": "Workloads",
+    "summary": {
+      "total": "Total",
+      "available": "Available",
+      "progressing": "Progressing",
+      "failed": "Failed"
+    },
+    "columns": {
+      "name": "Name",
+      "namespace": "Namespace",
+      "status": "Status",
+      "ready": "Ready",
+      "upToDate": "Up-to-date",
+      "available": "Available",
+      "images": "Images",
+      "age": "Age"
+    },
+    "status": {
+      "available": "Available",
+      "progressing": "Progressing",
+      "failed": "Failed",
+      "paused": "Paused",
+      "scaledDown": "Scaled Down"
+    }
+  },
   "placeholder": {
     "status": "STATUS / PENDING_IMPLEMENTATION",
     "terminalLabel": "kubectl — status",

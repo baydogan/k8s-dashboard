@@ -201,6 +201,85 @@
       "schedulingDisabled": "Zamanlama Kapalı"
     }
   },
+  "events": {
+    "title": "Olaylar",
+    "breadcrumb": "Genel Bakış",
+    "summary": {
+      "total": "Toplam",
+      "warnings": "Uyarılar",
+      "critical": "Kritik"
+    },
+    "columns": {
+      "type": "Tür",
+      "reason": "Sebep",
+      "object": "Nesne",
+      "namespace": "Namespace",
+      "message": "Mesaj",
+      "count": "Sayı",
+      "lastSeen": "Son Görülme",
+      "age": "Yaş"
+    },
+    "type": {
+      "normal": "Normal",
+      "warning": "Uyarı",
+      "critical": "Kritik"
+    },
+    "table": {
+      "show": "Göster",
+      "all": "Tümü",
+      "showing": "{total} içinden {shown} gösteriliyor"
+    }
+  },
+  "namespaces": {
+    "title": "Namespaceler",
+    "breadcrumb": "Cluster",
+    "summary": {
+      "total": "Toplam",
+      "active": "Aktif",
+      "terminating": "Sonlandırılıyor"
+    },
+    "columns": {
+      "name": "Ad",
+      "status": "Durum",
+      "pods": "Pod",
+      "deployments": "Deployment",
+      "services": "Servis",
+      "labels": "Etiketler",
+      "age": "Yaş"
+    },
+    "status": {
+      "active": "Aktif",
+      "terminating": "Sonlandırılıyor"
+    },
+    "noLabels": "—"
+  },
+  "deployments": {
+    "title": "Dağıtımlar",
+    "breadcrumb": "Yükler",
+    "summary": {
+      "total": "Toplam",
+      "available": "Hazır",
+      "progressing": "Güncelleniyor",
+      "failed": "Hatalı"
+    },
+    "columns": {
+      "name": "Ad",
+      "namespace": "Namespace",
+      "status": "Durum",
+      "ready": "Hazır",
+      "upToDate": "Güncel",
+      "available": "Erişilebilir",
+      "images": "İmajlar",
+      "age": "Yaş"
+    },
+    "status": {
+      "available": "Hazır",
+      "progressing": "Güncelleniyor",
+      "failed": "Başarısız",
+      "paused": "Duraklatıldı",
+      "scaledDown": "Kapatıldı"
+    }
+  },
   "placeholder": {
     "status": "DURUM / BEKLEMEDE",
     "terminalLabel": "kubectl — durum",
