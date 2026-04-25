@@ -13,6 +13,7 @@ import {
   LayoutGrid,
   LucideIcon,
   Network,
+  ShieldCheck,
   Sparkles,
 } from "lucide-react";
 import { cn } from "@/shared/lib/utils";
@@ -58,6 +59,7 @@ export function Sidebar({ clusterId }: { clusterId: string }) {
       items: [
         { label: t("items.nodes"), href: `${base}/nodes`, icon: Cpu },
         { label: t("items.namespaces"), href: `${base}/namespaces`, icon: Layers },
+        { label: t("items.apiServer"), href: `${base}/api-server`, icon: ShieldCheck },
       ],
     },
     {

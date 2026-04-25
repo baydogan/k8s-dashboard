@@ -6,3 +6,4 @@ export type { OverviewData, OverviewStat, OverviewEvent, ResourceMetric } from "
 export { MOCK_DEPLOYMENTS } from "./data/deployments";
 export { MOCK_NAMESPACES } from "./data/namespaces";
 export { MOCK_EVENTS } from "./data/events";
+export { MOCK_API_SERVER } from "./data/api-server";

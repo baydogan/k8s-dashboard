@@ -104,7 +104,8 @@
       "nodes": "Nodes",
       "namespaces": "Namespaces",
       "services": "Services",
-      "ingresses": "Ingresses"
+      "ingresses": "Ingresses",
+      "apiServer": "API Server"
     },
     "live": "LIVE",
     "activeCluster": "Active Cluster",
@@ -199,6 +200,61 @@
       "ready": "Ready",
       "notReady": "Not Ready",
       "schedulingDisabled": "Scheduling Disabled"
+    }
+  },
+  "apiServer": {
+    "title": "API Server SLO",
+    "breadcrumb": "Cluster",
+    "sloStatus": {
+      "label": "SLO STATUS",
+      "met": "SLO MET",
+      "at_risk": "AT RISK",
+      "violated": "VIOLATED",
+      "target": "Target"
+    },
+    "availability": {
+      "read": "Read Availability",
+      "write": "Write Availability"
+    },
+    "stats": {
+      "requestRate": "Request Rate",
+      "requestRateSub": "req / sec",
+      "errorRate": "Error Rate",
+      "p99Read": "p99 Read",
+      "p99Write": "p99 Write",
+      "latencyUnit": "ms"
+    },
+    "verbRates": {
+      "title": "Request Rate by Verb",
+      "verb": "Verb",
+      "rate": "Rate (req/s)",
+      "errorRate": "Error %"
+    },
+    "latency": {
+      "title": "Latency Percentiles",
+      "read": "Read",
+      "write": "Write",
+      "p50": "p50",
+      "p90": "p90",
+      "p99": "p99"
+    },
+    "statusCodes": {
+      "title": "Status Code Distribution",
+      "rate": "req/s"
+    },
+    "workQueue": {
+      "title": "Work Queue Latency",
+      "controller": "Controller",
+      "host": "Host",
+      "lastLatency": "Last",
+      "noData": "—"
+    },
+    "resources": {
+      "memory": "Memory",
+      "cpu": "CPU Usage",
+      "goroutines": "Goroutines",
+      "mib": "MiB",
+      "current": "Current"
     }
   },
   "events": {

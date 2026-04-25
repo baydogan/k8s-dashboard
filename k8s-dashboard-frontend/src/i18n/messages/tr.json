@@ -104,7 +104,8 @@
       "nodes": "Nodelar",
       "namespaces": "Namespaceler",
       "services": "Servisler",
-      "ingresses": "Ingressler"
+      "ingresses": "Ingressler",
+      "apiServer": "API Server"
     },
     "live": "CANLI",
     "activeCluster": "Aktif Cluster",
@@ -199,6 +200,61 @@
       "ready": "Hazır",
       "notReady": "Hazır Değil",
       "schedulingDisabled": "Zamanlama Kapalı"
+    }
+  },
+  "apiServer": {
+    "title": "API Server SLO",
+    "breadcrumb": "Cluster",
+    "sloStatus": {
+      "label": "SLO DURUMU",
+      "met": "SLO SAĞLANDI",
+      "at_risk": "RİSKTE",
+      "violated": "İHLAL EDİLDİ",
+      "target": "Hedef"
+    },
+    "availability": {
+      "read": "Okuma Erişilebilirliği",
+      "write": "Yazma Erişilebilirliği"
+    },
+    "stats": {
+      "requestRate": "İstek Hızı",
+      "requestRateSub": "istek / sn",
+      "errorRate": "Hata Oranı",
+      "p99Read": "p99 Okuma",
+      "p99Write": "p99 Yazma",
+      "latencyUnit": "ms"
+    },
+    "verbRates": {
+      "title": "Verb'e Göre İstek Hızı",
+      "verb": "Verb",
+      "rate": "Hız (istek/sn)",
+      "errorRate": "Hata %"
+    },
+    "latency": {
+      "title": "Gecikme Persentilleri",
+      "read": "Okuma",
+      "write": "Yazma",
+      "p50": "p50",
+      "p90": "p90",
+      "p99": "p99"
+    },
+    "statusCodes": {
+      "title": "Durum Kodu Dağılımı",
+      "rate": "istek/sn"
+    },
+    "workQueue": {
+      "title": "İş Kuyruğu Gecikmesi",
+      "controller": "Controller",
+      "host": "Host",
+      "lastLatency": "Son",
+      "noData": "—"
+    },
+    "resources": {
+      "memory": "Bellek",
+      "cpu": "CPU Kullanımı",
+      "goroutines": "Goroutine",
+      "mib": "MiB",
+      "current": "Anlık"
     }
   },
   "events": {
