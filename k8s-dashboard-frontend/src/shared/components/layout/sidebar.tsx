@@ -6,15 +6,29 @@ import {
   Activity,
   Box,
   Boxes,
+  Briefcase,
   ChevronRight,
   Cpu,
+  Database,
+  FileStack,
+  Gauge,
   Globe,
+  HardDrive,
+  KeyRound,
   Layers,
   LayoutGrid,
+  Lock,
   LucideIcon,
   Network,
+  Package,
+  Scale,
+  Server,
+  ShieldAlert,
   ShieldCheck,
   Sparkles,
+  StickyNote,
+  Timer,
+  UserCircle,
 } from "lucide-react";
 import { cn } from "@/shared/lib/utils";
 import { Logo } from "@/shared/components/ui/logo";
@@ -50,29 +64,60 @@ export function Sidebar({ clusterId }: { clusterId: string }) {
     {
       label: t("groups.workloads"),
       items: [
-        { label: t("items.pods"), href: `${base}/pods`, icon: Box },
-        { label: t("items.deployments"), href: `${base}/deployments`, icon: Boxes },
+        { label: t("items.pods"),        href: `${base}/pods`,        icon: Box       },
+        { label: t("items.deployments"), href: `${base}/deployments`, icon: Boxes     },
+        { label: t("items.statefulSets"),href: `${base}/statefulsets`,icon: Database  },
+        { label: t("items.daemonSets"),  href: `${base}/daemonsets`,  icon: HardDrive },
+        { label: t("items.jobs"),        href: `${base}/jobs`,        icon: Briefcase },
+        { label: t("items.cronJobs"),    href: `${base}/cronjobs`,    icon: Timer     },
+        { label: t("items.hpa"),         href: `${base}/hpa`,         icon: Gauge     },
       ],
     },
     {
       label: t("groups.cluster"),
       items: [
-        { label: t("items.nodes"), href: `${base}/nodes`, icon: Cpu },
-        { label: t("items.namespaces"), href: `${base}/namespaces`, icon: Layers },
-        { label: t("items.apiServer"), href: `${base}/api-server`, icon: ShieldCheck },
+        { label: t("items.nodes"),          href: `${base}/nodes`,           icon: Cpu        },
+        { label: t("items.namespaces"),     href: `${base}/namespaces`,      icon: Layers     },
+        { label: t("items.apiServer"),      href: `${base}/api-server`,      icon: ShieldCheck },
+        { label: t("items.pdb"),            href: `${base}/pdb`,             icon: ShieldAlert },
+        { label: t("items.resourceQuotas"), href: `${base}/resource-quotas`, icon: Scale      },
       ],
     },
     {
       label: t("groups.network"),
       items: [
-        { label: t("items.services"), href: `${base}/services`, icon: Network },
-        { label: t("items.ingresses"), href: `${base}/ingresses`, icon: Globe },
+        { label: t("items.services"),  href: `${base}/services`,  icon: Network },
+        { label: t("items.ingresses"), href: `${base}/ingresses`, icon: Globe   },
+      ],
+    },
+    {
+      label: t("groups.storage"),
+      items: [
+        { label: t("items.persistentVolumes"),      href: `${base}/persistent-volumes`,       icon: Server    },
+        { label: t("items.persistentVolumeClaims"), href: `${base}/persistent-volume-claims`, icon: FileStack },
+        { label: t("items.storageClasses"),         href: `${base}/storage-classes`,          icon: Package   },
+      ],
+    },
+    {
+      label: t("groups.config"),
+      items: [
+        { label: t("items.configMaps"),  href: `${base}/configmaps`, icon: StickyNote  },
+        { label: t("items.secrets"),     href: `${base}/secrets`,    icon: Lock        },
+        { label: t("items.limitRanges"), href: `${base}/limit-ranges`, icon: Scale     },
+      ],
+    },
+    {
+      label: t("groups.rbac"),
+      items: [
+        { label: t("items.serviceAccounts"),  href: `${base}/service-accounts`,  icon: UserCircle  },
+        { label: t("items.roles"),            href: `${base}/roles`,             icon: KeyRound    },
+        { label: t("items.networkPolicies"),  href: `${base}/network-policies`,  icon: ShieldAlert },
       ],
     },
   ];
 
   return (
-    <aside className="w-56 shrink-0 border-r border-border bg-bg-raised flex flex-col">
+    <aside className="w-56 shrink-0 border-r border-border bg-bg-raised flex flex-col h-screen sticky top-0">
       {/* Logo */}
       <div className="h-13 px-4 flex items-center border-b border-border">
         <Logo />

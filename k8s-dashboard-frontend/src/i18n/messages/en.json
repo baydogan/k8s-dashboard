@@ -16,7 +16,11 @@
     "no": "No",
     "confirm": "Confirm",
     "close": "Close",
-    "systemReady": "SYSTEM · READY"
+    "systemReady": "SYSTEM · READY",
+    "searchPlaceholder": "Search...",
+    "allNamespaces": "All namespaces",
+    "noResults": "No results for \"{query}\"",
+    "noItems": "No items"
   },
   "auth": {
     "login": {
@@ -94,7 +98,10 @@
       "overview": "OVERVIEW",
       "workloads": "WORKLOADS",
       "cluster": "CLUSTER",
-      "network": "NETWORK"
+      "network": "NETWORK",
+      "storage": "STORAGE",
+      "config": "CONFIG",
+      "rbac": "RBAC"
     },
     "items": {
       "dashboard": "Dashboard",
@@ -105,7 +112,23 @@
       "namespaces": "Namespaces",
       "services": "Services",
       "ingresses": "Ingresses",
-      "apiServer": "API Server"
+      "apiServer": "API Server",
+      "statefulSets": "StatefulSets",
+      "daemonSets": "DaemonSets",
+      "jobs": "Jobs",
+      "cronJobs": "CronJobs",
+      "hpa": "Autoscalers",
+      "pdb": "Disruption Budgets",
+      "resourceQuotas": "Resource Quotas",
+      "persistentVolumes": "Volumes",
+      "persistentVolumeClaims": "Volume Claims",
+      "storageClasses": "Storage Classes",
+      "configMaps": "ConfigMaps",
+      "secrets": "Secrets",
+      "serviceAccounts": "Service Accounts",
+      "networkPolicies": "Network Policies",
+      "limitRanges": "Limit Ranges",
+      "roles": "Roles"
     },
     "live": "LIVE",
     "activeCluster": "Active Cluster",
@@ -335,6 +358,138 @@
       "paused": "Paused",
       "scaledDown": "Scaled Down"
     }
+  },
+  "persistentVolumes": {
+    "title": "Persistent Volumes",
+    "breadcrumb": "Storage",
+    "summary": { "total": "Total", "bound": "Bound", "available": "Available", "released": "Released" },
+    "columns": { "name": "Name", "status": "Status", "capacity": "Capacity", "accessModes": "Access Modes", "reclaimPolicy": "Reclaim", "storageClass": "Storage Class", "claim": "Claim", "age": "Age" },
+    "status": { "available": "Available", "bound": "Bound", "released": "Released", "failed": "Failed" },
+    "noClaim": "—"
+  },
+  "persistentVolumeClaims": {
+    "title": "Persistent Volume Claims",
+    "breadcrumb": "Storage",
+    "summary": { "total": "Total", "bound": "Bound", "pending": "Pending", "lost": "Lost" },
+    "columns": { "name": "Name", "namespace": "Namespace", "status": "Status", "volume": "Volume", "capacity": "Capacity", "accessModes": "Access Modes", "storageClass": "Storage Class", "age": "Age" },
+    "status": { "bound": "Bound", "pending": "Pending", "lost": "Lost" },
+    "noVolume": "—", "noCapacity": "—"
+  },
+  "hpa": {
+    "title": "Autoscalers",
+    "breadcrumb": "Workloads",
+    "summary": { "total": "Total", "scalingUp": "Scaling Up", "scalingDown": "Scaling Down", "atTarget": "At Target" },
+    "columns": { "name": "Name", "namespace": "Namespace", "target": "Target", "replicas": "Replicas", "current": "Current", "metric": "Metric", "age": "Age" },
+    "status": { "scalingUp": "Scaling Up", "scalingDown": "Scaling Down", "atTarget": "At Target", "unknown": "Unknown" }
+  },
+  "pdb": {
+    "title": "Disruption Budgets",
+    "breadcrumb": "Cluster",
+    "summary": { "total": "Total", "safe": "Safe", "noDisruption": "No Disruption" },
+    "columns": { "name": "Name", "namespace": "Namespace", "policy": "Policy", "currentHealthy": "Healthy", "desiredHealthy": "Min Healthy", "disruptionsAllowed": "Allowed", "age": "Age" }
+  },
+  "resourceQuotas": {
+    "title": "Resource Quotas",
+    "breadcrumb": "Cluster",
+    "summary": { "total": "Total", "namespaces": "Namespaces" },
+    "namespace": "Namespace",
+    "resource": "Resource",
+    "used": "Used",
+    "hard": "Hard Limit",
+    "age": "Age"
+  },
+  "storageClasses": {
+    "title": "Storage Classes",
+    "breadcrumb": "Storage",
+    "summary": { "total": "Total", "default": "Default" },
+    "columns": { "name": "Name", "provisioner": "Provisioner", "reclaimPolicy": "Reclaim", "bindingMode": "Binding Mode", "expansion": "Expansion", "age": "Age" },
+    "default": "default",
+    "allowed": "Allowed",
+    "notAllowed": "—",
+    "bindingMode": { "immediate": "Immediate", "waitForFirstConsumer": "WaitForFirstConsumer" }
+  },
+  "statefulSets": {
+    "title": "StatefulSets",
+    "breadcrumb": "Workloads",
+    "summary": { "total": "Total", "running": "Running", "degraded": "Degraded", "failed": "Failed" },
+    "columns": { "name": "Name", "namespace": "Namespace", "status": "Status", "ready": "Ready", "service": "Service", "storage": "Storage", "age": "Age" },
+    "status": { "running": "Running", "degraded": "Degraded", "failed": "Failed", "updating": "Updating" }
+  },
+  "daemonSets": {
+    "title": "DaemonSets",
+    "breadcrumb": "Workloads",
+    "summary": { "total": "Total", "available": "Available", "degraded": "Degraded" },
+    "columns": { "name": "Name", "namespace": "Namespace", "status": "Status", "desired": "Desired", "ready": "Ready", "available": "Available", "upToDate": "Up-to-date", "age": "Age" },
+    "status": { "available": "Available", "degraded": "Degraded", "progressing": "Progressing" }
+  },
+  "jobs": {
+    "title": "Jobs",
+    "breadcrumb": "Workloads",
+    "summary": { "total": "Total", "complete": "Complete", "running": "Running", "failed": "Failed" },
+    "columns": { "name": "Name", "namespace": "Namespace", "status": "Status", "completions": "Completions", "duration": "Duration", "age": "Age" },
+    "status": { "complete": "Complete", "running": "Running", "failed": "Failed", "suspended": "Suspended" },
+    "noDuration": "—"
+  },
+  "cronJobs": {
+    "title": "CronJobs",
+    "breadcrumb": "Workloads",
+    "summary": { "total": "Total", "active": "Active", "suspended": "Suspended" },
+    "columns": { "name": "Name", "namespace": "Namespace", "schedule": "Schedule", "lastSchedule": "Last Schedule", "lastSuccessful": "Last Successful", "active": "Active", "age": "Age" },
+    "status": { "active": "Active", "suspended": "Suspended" },
+    "noData": "—"
+  },
+  "services": {
+    "title": "Services",
+    "breadcrumb": "Network",
+    "summary": { "total": "Total", "loadBalancer": "LoadBalancer", "nodePort": "NodePort" },
+    "columns": { "name": "Name", "namespace": "Namespace", "type": "Type", "clusterIP": "Cluster IP", "externalIP": "External IP", "ports": "Ports", "age": "Age" },
+    "type": { "clusterIP": "ClusterIP", "nodePort": "NodePort", "loadBalancer": "LoadBalancer", "externalName": "ExternalName" },
+    "noExternalIP": "—"
+  },
+  "ingresses": {
+    "title": "Ingresses",
+    "breadcrumb": "Network",
+    "summary": { "total": "Total", "withTls": "TLS", "noTls": "No TLS" },
+    "columns": { "name": "Name", "namespace": "Namespace", "class": "Class", "hosts": "Hosts", "address": "Address", "tls": "TLS", "age": "Age" },
+    "tlsEnabled": "TLS",
+    "tlsDisabled": "No TLS",
+    "noAddress": "—"
+  },
+  "configMaps": {
+    "title": "ConfigMaps",
+    "breadcrumb": "Config",
+    "summary": { "total": "Total", "namespaces": "Namespaces", "keys": "Total Keys" },
+    "columns": { "name": "Name", "namespace": "Namespace", "keys": "Data Keys", "age": "Age" }
+  },
+  "secrets": {
+    "title": "Secrets",
+    "breadcrumb": "Config",
+    "summary": { "total": "Total", "namespaces": "Namespaces", "tls": "TLS" },
+    "columns": { "name": "Name", "namespace": "Namespace", "type": "Type", "keys": "Keys", "age": "Age" }
+  },
+  "serviceAccounts": {
+    "title": "Service Accounts",
+    "breadcrumb": "RBAC",
+    "summary": { "total": "Total", "namespaces": "Namespaces" },
+    "columns": { "name": "Name", "namespace": "Namespace", "secrets": "Secrets", "age": "Age" }
+  },
+  "networkPolicies": {
+    "title": "Network Policies",
+    "breadcrumb": "Network",
+    "summary": { "total": "Total", "namespaces": "Namespaces", "denyAll": "Deny All" },
+    "columns": { "name": "Name", "namespace": "Namespace", "podSelector": "Pod Selector", "policyTypes": "Policy Types", "ingress": "Ingress Rules", "egress": "Egress Rules", "age": "Age" }
+  },
+  "limitRanges": {
+    "title": "Limit Ranges",
+    "breadcrumb": "Cluster",
+    "summary": { "total": "Total", "namespaces": "Namespaces" },
+    "columns": { "type": "Type", "resource": "Resource", "min": "Min", "max": "Max", "default": "Default", "defaultRequest": "Default Request" }
+  },
+  "roles": {
+    "title": "Roles",
+    "breadcrumb": "RBAC",
+    "summary": { "total": "Total", "namespaces": "Namespaces", "rules": "Total Rules" },
+    "columns": { "name": "Name", "namespace": "Namespace", "rules": "Rules", "age": "Age" }
   },
   "placeholder": {
     "status": "STATUS / PENDING_IMPLEMENTATION",

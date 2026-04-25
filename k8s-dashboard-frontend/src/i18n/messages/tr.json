@@ -16,7 +16,11 @@
     "no": "Hayır",
     "confirm": "Onayla",
     "close": "Kapat",
-    "systemReady": "SİSTEM · HAZIR"
+    "systemReady": "SİSTEM · HAZIR",
+    "searchPlaceholder": "Ara...",
+    "allNamespaces": "Tüm namespaceler",
+    "noResults": "\"{query}\" için sonuç yok",
+    "noItems": "Öğe yok"
   },
   "auth": {
     "login": {
@@ -94,7 +98,10 @@
       "overview": "GENEL",
       "workloads": "YÜKLER",
       "cluster": "CLUSTER",
-      "network": "AĞ"
+      "network": "AĞ",
+      "storage": "DEPOLAMA",
+      "config": "YAPILANDIRMA",
+      "rbac": "YETKİLENDİRME"
     },
     "items": {
       "dashboard": "Panel",
@@ -105,7 +112,23 @@
       "namespaces": "Namespaceler",
       "services": "Servisler",
       "ingresses": "Ingressler",
-      "apiServer": "API Server"
+      "apiServer": "API Server",
+      "statefulSets": "StatefulSet'ler",
+      "daemonSets": "DaemonSet'ler",
+      "jobs": "İşler",
+      "cronJobs": "Zamanlanmış İşler",
+      "hpa": "Otomatik Ölçekleme",
+      "pdb": "Bozulma Bütçeleri",
+      "resourceQuotas": "Kaynak Kotaları",
+      "persistentVolumes": "Birimler",
+      "persistentVolumeClaims": "Birim Talepleri",
+      "storageClasses": "Depolama Sınıfları",
+      "configMaps": "ConfigMap'ler",
+      "secrets": "Gizli Veriler",
+      "serviceAccounts": "Servis Hesapları",
+      "networkPolicies": "Ağ Politikaları",
+      "limitRanges": "Limit Aralıkları",
+      "roles": "Roller"
     },
     "live": "CANLI",
     "activeCluster": "Aktif Cluster",
@@ -335,6 +358,138 @@
       "paused": "Duraklatıldı",
       "scaledDown": "Kapatıldı"
     }
+  },
+  "persistentVolumes": {
+    "title": "Kalıcı Birimler",
+    "breadcrumb": "Depolama",
+    "summary": { "total": "Toplam", "bound": "Bağlı", "available": "Müsait", "released": "Serbest" },
+    "columns": { "name": "Ad", "status": "Durum", "capacity": "Kapasite", "accessModes": "Erişim", "reclaimPolicy": "Geri Al", "storageClass": "Depolama Sınıfı", "claim": "Talep", "age": "Yaş" },
+    "status": { "available": "Müsait", "bound": "Bağlı", "released": "Serbest", "failed": "Hatalı" },
+    "noClaim": "—"
+  },
+  "persistentVolumeClaims": {
+    "title": "Birim Talepleri",
+    "breadcrumb": "Depolama",
+    "summary": { "total": "Toplam", "bound": "Bağlı", "pending": "Beklemede", "lost": "Kayıp" },
+    "columns": { "name": "Ad", "namespace": "Namespace", "status": "Durum", "volume": "Birim", "capacity": "Kapasite", "accessModes": "Erişim", "storageClass": "Depolama Sınıfı", "age": "Yaş" },
+    "status": { "bound": "Bağlı", "pending": "Beklemede", "lost": "Kayıp" },
+    "noVolume": "—", "noCapacity": "—"
+  },
+  "hpa": {
+    "title": "Otomatik Ölçekleme",
+    "breadcrumb": "Yükler",
+    "summary": { "total": "Toplam", "scalingUp": "Büyüyor", "scalingDown": "Küçülüyor", "atTarget": "Hedefte" },
+    "columns": { "name": "Ad", "namespace": "Namespace", "target": "Hedef", "replicas": "Replica", "current": "Anlık", "metric": "Metrik", "age": "Yaş" },
+    "status": { "scalingUp": "Büyüyor", "scalingDown": "Küçülüyor", "atTarget": "Hedefte", "unknown": "Bilinmiyor" }
+  },
+  "pdb": {
+    "title": "Bozulma Bütçeleri",
+    "breadcrumb": "Cluster",
+    "summary": { "total": "Toplam", "safe": "Güvenli", "noDisruption": "Bozulma Yok" },
+    "columns": { "name": "Ad", "namespace": "Namespace", "policy": "Politika", "currentHealthy": "Sağlıklı", "desiredHealthy": "Min Sağlıklı", "disruptionsAllowed": "İzin", "age": "Yaş" }
+  },
+  "resourceQuotas": {
+    "title": "Kaynak Kotaları",
+    "breadcrumb": "Cluster",
+    "summary": { "total": "Toplam", "namespaces": "Namespace" },
+    "namespace": "Namespace",
+    "resource": "Kaynak",
+    "used": "Kullanılan",
+    "hard": "Limit",
+    "age": "Yaş"
+  },
+  "storageClasses": {
+    "title": "Depolama Sınıfları",
+    "breadcrumb": "Depolama",
+    "summary": { "total": "Toplam", "default": "Varsayılan" },
+    "columns": { "name": "Ad", "provisioner": "Sağlayıcı", "reclaimPolicy": "Geri Al", "bindingMode": "Bağlama Modu", "expansion": "Genişletme", "age": "Yaş" },
+    "default": "varsayılan",
+    "allowed": "İzinli",
+    "notAllowed": "—",
+    "bindingMode": { "immediate": "Anlık", "waitForFirstConsumer": "İlk Kullanımda" }
+  },
+  "statefulSets": {
+    "title": "StatefulSet'ler",
+    "breadcrumb": "Yükler",
+    "summary": { "total": "Toplam", "running": "Çalışıyor", "degraded": "Bozulmuş", "failed": "Hatalı" },
+    "columns": { "name": "Ad", "namespace": "Namespace", "status": "Durum", "ready": "Hazır", "service": "Servis", "storage": "Depolama", "age": "Yaş" },
+    "status": { "running": "Çalışıyor", "degraded": "Bozulmuş", "failed": "Hatalı", "updating": "Güncelleniyor" }
+  },
+  "daemonSets": {
+    "title": "DaemonSet'ler",
+    "breadcrumb": "Yükler",
+    "summary": { "total": "Toplam", "available": "Hazır", "degraded": "Bozulmuş" },
+    "columns": { "name": "Ad", "namespace": "Namespace", "status": "Durum", "desired": "Beklenen", "ready": "Hazır", "available": "Erişilebilir", "upToDate": "Güncel", "age": "Yaş" },
+    "status": { "available": "Hazır", "degraded": "Bozulmuş", "progressing": "Güncelleniyor" }
+  },
+  "jobs": {
+    "title": "İşler",
+    "breadcrumb": "Yükler",
+    "summary": { "total": "Toplam", "complete": "Tamamlandı", "running": "Çalışıyor", "failed": "Hatalı" },
+    "columns": { "name": "Ad", "namespace": "Namespace", "status": "Durum", "completions": "Tamamlama", "duration": "Süre", "age": "Yaş" },
+    "status": { "complete": "Tamamlandı", "running": "Çalışıyor", "failed": "Hatalı", "suspended": "Duraklatıldı" },
+    "noDuration": "—"
+  },
+  "cronJobs": {
+    "title": "Zamanlanmış İşler",
+    "breadcrumb": "Yükler",
+    "summary": { "total": "Toplam", "active": "Aktif", "suspended": "Duraklatılmış" },
+    "columns": { "name": "Ad", "namespace": "Namespace", "schedule": "Zamanlama", "lastSchedule": "Son Çalışma", "lastSuccessful": "Son Başarılı", "active": "Aktif", "age": "Yaş" },
+    "status": { "active": "Aktif", "suspended": "Duraklatıldı" },
+    "noData": "—"
+  },
+  "services": {
+    "title": "Servisler",
+    "breadcrumb": "Ağ",
+    "summary": { "total": "Toplam", "loadBalancer": "LoadBalancer", "nodePort": "NodePort" },
+    "columns": { "name": "Ad", "namespace": "Namespace", "type": "Tür", "clusterIP": "Cluster IP", "externalIP": "Dış IP", "ports": "Portlar", "age": "Yaş" },
+    "type": { "clusterIP": "ClusterIP", "nodePort": "NodePort", "loadBalancer": "LoadBalancer", "externalName": "ExternalName" },
+    "noExternalIP": "—"
+  },
+  "ingresses": {
+    "title": "Ingress'ler",
+    "breadcrumb": "Ağ",
+    "summary": { "total": "Toplam", "withTls": "TLS'li", "noTls": "TLS'siz" },
+    "columns": { "name": "Ad", "namespace": "Namespace", "class": "Sınıf", "hosts": "Host'lar", "address": "Adres", "tls": "TLS", "age": "Yaş" },
+    "tlsEnabled": "TLS",
+    "tlsDisabled": "TLS Yok",
+    "noAddress": "—"
+  },
+  "configMaps": {
+    "title": "ConfigMap'ler",
+    "breadcrumb": "Yapılandırma",
+    "summary": { "total": "Toplam", "namespaces": "Namespace", "keys": "Toplam Anahtar" },
+    "columns": { "name": "Ad", "namespace": "Namespace", "keys": "Veri Anahtarları", "age": "Yaş" }
+  },
+  "secrets": {
+    "title": "Gizli Veriler",
+    "breadcrumb": "Yapılandırma",
+    "summary": { "total": "Toplam", "namespaces": "Namespace", "tls": "TLS" },
+    "columns": { "name": "Ad", "namespace": "Namespace", "type": "Tür", "keys": "Anahtar", "age": "Yaş" }
+  },
+  "serviceAccounts": {
+    "title": "Servis Hesapları",
+    "breadcrumb": "Yetkilendirme",
+    "summary": { "total": "Toplam", "namespaces": "Namespace" },
+    "columns": { "name": "Ad", "namespace": "Namespace", "secrets": "Gizli Veri", "age": "Yaş" }
+  },
+  "networkPolicies": {
+    "title": "Ağ Politikaları",
+    "breadcrumb": "Ağ",
+    "summary": { "total": "Toplam", "namespaces": "Namespace", "denyAll": "Tümünü Engelle" },
+    "columns": { "name": "Ad", "namespace": "Namespace", "podSelector": "Pod Seçici", "policyTypes": "Politika Türleri", "ingress": "Gelen Kural", "egress": "Giden Kural", "age": "Yaş" }
+  },
+  "limitRanges": {
+    "title": "Limit Aralıkları",
+    "breadcrumb": "Cluster",
+    "summary": { "total": "Toplam", "namespaces": "Namespace" },
+    "columns": { "type": "Tür", "resource": "Kaynak", "min": "Min", "max": "Max", "default": "Varsayılan", "defaultRequest": "Varsayılan İstek" }
+  },
+  "roles": {
+    "title": "Roller",
+    "breadcrumb": "Yetkilendirme",
+    "summary": { "total": "Toplam", "namespaces": "Namespace", "rules": "Toplam Kural" },
+    "columns": { "name": "Ad", "namespace": "Namespace", "rules": "Kurallar", "age": "Yaş" }
   },
   "placeholder": {
     "status": "DURUM / BEKLEMEDE",

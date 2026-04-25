@@ -1,0 +1,40 @@
+import { Header } from "@/shared/components/layout/header";
+import { PageContainer } from "@/shared/components/layout/page-container";
+import { SecretsTable } from "@/features/secrets/secrets-table";
+import { getSecrets } from "@/services/secret-service";
+import { getTranslations } from "next-intl/server";
+
+interface Props { params: Promise<{ clusterId: string }> }
+
+export default async function SecretsPage({ params }: Props) {
+  const { clusterId } = await params;
+  const items = await getSecrets(clusterId);
+  const t = await getTranslations("secrets");
+
+  const namespacesCount = new Set(items.map((i) => i.namespace)).size;
+  const tlsCount = items.filter((i) => i.type === "kubernetes.io/tls").length;
+
+  return (
+    <>
+      <Header title={t("title")} breadcrumbs={[t("breadcrumb")]} />
+      <PageContainer>
+        <div className="flex items-center gap-6 mb-5 pb-5 border-b border-border">
+          {[
+            { label: t("summary.total"),      value: items.length,    color: "text-text"        },
+            { label: t("summary.namespaces"),  value: namespacesCount, color: "text-accent"      },
+            { label: t("summary.tls"),         value: tlsCount,        color: "text-accent-info" },
+          ].map((s, i) => (
+            <div key={i} className="flex items-center gap-6">
+              {i > 0 && <div className="h-10 w-px bg-border" />}
+              <div>
+                <div className="text-[10px] font-mono tracking-[0.2em] text-text-dim uppercase mb-1">{s.label}</div>
+                <div className={`font-display text-2xl ${s.color}`}>{s.value}</div>
+              </div>
+            </div>
+          ))}
+        </div>
+        <SecretsTable items={items} />
+      </PageContainer>
+    </>
+  );
+}
