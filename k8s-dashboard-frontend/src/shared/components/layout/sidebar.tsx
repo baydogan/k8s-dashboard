@@ -6,6 +6,9 @@ import {
   Activity,
   Box,
   Boxes,
+  Copy,
+  Plug,
+  Plug2,
   Briefcase,
   ChevronRight,
   Cpu,
@@ -66,6 +69,7 @@ export function Sidebar({ clusterId }: { clusterId: string }) {
       items: [
         { label: t("items.pods"),        href: `${base}/pods`,        icon: Box       },
         { label: t("items.deployments"), href: `${base}/deployments`, icon: Boxes     },
+        { label: t("items.replicaSets"),  href: `${base}/replica-sets`,icon: Copy      },
         { label: t("items.statefulSets"),href: `${base}/statefulsets`,icon: Database  },
         { label: t("items.daemonSets"),  href: `${base}/daemonsets`,  icon: HardDrive },
         { label: t("items.jobs"),        href: `${base}/jobs`,        icon: Briefcase },
@@ -86,8 +90,10 @@ export function Sidebar({ clusterId }: { clusterId: string }) {
     {
       label: t("groups.network"),
       items: [
-        { label: t("items.services"),  href: `${base}/services`,  icon: Network },
-        { label: t("items.ingresses"), href: `${base}/ingresses`, icon: Globe   },
+        { label: t("items.services"),        href: `${base}/services`,         icon: Network },
+        { label: t("items.ingresses"),       href: `${base}/ingresses`,        icon: Globe   },
+        { label: t("items.endpoints"),       href: `${base}/endpoints`,        icon: Plug    },
+        { label: t("items.endpointSlices"),  href: `${base}/endpoint-slices`,  icon: Plug2   },
       ],
     },
     {

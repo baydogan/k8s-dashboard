@@ -108,10 +108,13 @@
       "events": "Events",
       "pods": "Pods",
       "deployments": "Deployments",
+      "replicaSets": "ReplicaSets",
       "nodes": "Nodes",
       "namespaces": "Namespaces",
       "services": "Services",
       "ingresses": "Ingresses",
+      "endpoints": "Endpoints",
+      "endpointSlices": "Endpoint Slices",
       "apiServer": "API Server",
       "statefulSets": "StatefulSets",
       "daemonSets": "DaemonSets",
@@ -359,6 +362,13 @@
       "scaledDown": "Scaled Down"
     }
   },
+  "replicaSets": {
+    "title": "ReplicaSets",
+    "breadcrumb": "Workloads",
+    "summary": { "total": "Total", "available": "Available", "degraded": "Degraded", "unavailable": "Unavailable" },
+    "columns": { "name": "Name", "namespace": "Namespace", "status": "Status", "ready": "Ready", "owner": "Owner", "images": "Images", "age": "Age" },
+    "status": { "available": "Available", "degraded": "Degraded", "unavailable": "Unavailable", "idle": "Idle" }
+  },
   "persistentVolumes": {
     "title": "Persistent Volumes",
     "breadcrumb": "Storage",
@@ -454,6 +464,18 @@
     "tlsEnabled": "TLS",
     "tlsDisabled": "No TLS",
     "noAddress": "—"
+  },
+  "endpoints": {
+    "title": "Endpoints",
+    "breadcrumb": "Network",
+    "summary": { "total": "Total", "healthy": "Healthy", "degraded": "Degraded", "down": "Down" },
+    "columns": { "name": "Name", "namespace": "Namespace", "ready": "Ready", "notReady": "Not Ready", "ports": "Ports", "age": "Age" }
+  },
+  "endpointSlices": {
+    "title": "Endpoint Slices",
+    "breadcrumb": "Network",
+    "summary": { "total": "Total", "readyEndpoints": "Ready Endpoints", "totalEndpoints": "Total Endpoints", "ipv6": "IPv6" },
+    "columns": { "name": "Name", "namespace": "Namespace", "service": "Service", "addressType": "Address Type", "ready": "Ready", "ports": "Ports", "age": "Age" }
   },
   "configMaps": {
     "title": "ConfigMaps",

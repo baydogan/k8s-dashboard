@@ -25,3 +25,6 @@ export { MOCK_SERVICE_ACCOUNTS } from "./data/service-accounts";
 export { MOCK_NETWORK_POLICIES } from "./data/network-policies";
 export { MOCK_LIMIT_RANGES } from "./data/limit-ranges";
 export { MOCK_ROLES } from "./data/roles";
+export { MOCK_REPLICA_SETS } from "./data/replica-sets";
+export { MOCK_ENDPOINTS } from "./data/endpoints";
+export { MOCK_ENDPOINT_SLICES } from "./data/endpoint-slices";

@@ -108,10 +108,13 @@
       "events": "Olaylar",
       "pods": "Podlar",
       "deployments": "Deploymentlar",
+      "replicaSets": "ReplicaSet'ler",
       "nodes": "Nodelar",
       "namespaces": "Namespaceler",
       "services": "Servisler",
       "ingresses": "Ingressler",
+      "endpoints": "Endpointler",
+      "endpointSlices": "Endpoint Slice'ları",
       "apiServer": "API Server",
       "statefulSets": "StatefulSet'ler",
       "daemonSets": "DaemonSet'ler",
@@ -359,6 +362,13 @@
       "scaledDown": "Kapatıldı"
     }
   },
+  "replicaSets": {
+    "title": "ReplicaSet'ler",
+    "breadcrumb": "Yükler",
+    "summary": { "total": "Toplam", "available": "Hazır", "degraded": "Bozulmuş", "unavailable": "Kullanılamaz" },
+    "columns": { "name": "Ad", "namespace": "Namespace", "status": "Durum", "ready": "Hazır", "owner": "Sahip", "images": "İmajlar", "age": "Yaş" },
+    "status": { "available": "Hazır", "degraded": "Bozulmuş", "unavailable": "Kullanılamaz", "idle": "Boşta" }
+  },
   "persistentVolumes": {
     "title": "Kalıcı Birimler",
     "breadcrumb": "Depolama",
@@ -454,6 +464,18 @@
     "tlsEnabled": "TLS",
     "tlsDisabled": "TLS Yok",
     "noAddress": "—"
+  },
+  "endpoints": {
+    "title": "Endpointler",
+    "breadcrumb": "Ağ",
+    "summary": { "total": "Toplam", "healthy": "Sağlıklı", "degraded": "Bozulmuş", "down": "Çevrimdışı" },
+    "columns": { "name": "Ad", "namespace": "Namespace", "ready": "Hazır", "notReady": "Hazır Değil", "ports": "Portlar", "age": "Yaş" }
+  },
+  "endpointSlices": {
+    "title": "Endpoint Slice'ları",
+    "breadcrumb": "Ağ",
+    "summary": { "total": "Toplam", "readyEndpoints": "Hazır Endpoint", "totalEndpoints": "Toplam Endpoint", "ipv6": "IPv6" },
+    "columns": { "name": "Ad", "namespace": "Namespace", "service": "Servis", "addressType": "Adres Tipi", "ready": "Hazır", "ports": "Portlar", "age": "Yaş" }
   },
   "configMaps": {
     "title": "ConfigMap'ler",
