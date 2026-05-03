@@ -5,9 +5,10 @@ import { TableToolbar } from "@/shared/components/ui/table-toolbar";
 import { Badge } from "@/shared/components/ui/badge";
 import { Card } from "@/shared/components/ui/card";
 import { StatusDot } from "@/shared/components/ui/status-dot";
-import { MoreHorizontal } from "lucide-react";
+import { MoreHorizontal, ScrollText } from "lucide-react";
 import { useTranslations } from "next-intl";
 import type { Pod, PodStatus } from "@/entities/pod";
+import { LogDrawer } from "./log-drawer";
 
 function statusToVariant(s: PodStatus) {
   switch (s) {
@@ -31,9 +32,12 @@ function statusToDot(s: PodStatus): "healthy" | "warning" | "critical" | "pendin
   }
 }
 
-export function PodsTable({ items }: { items: Pod[] }) {
+interface LogTarget { name: string; namespace: string; containers: string[] }
+
+export function PodsTable({ items, clusterId }: { items: Pod[]; clusterId: string }) {
   const [search, setSearch] = useState("");
   const [ns, setNs] = useState("");
+  const [logTarget, setLogTarget] = useState<LogTarget | null>(null);
   const t = useTranslations("pods");
   const tc = useTranslations("common");
 
@@ -81,13 +85,36 @@ export function PodsTable({ items }: { items: Pod[] }) {
                   </td>
                   <td className="px-4 py-3 font-mono text-xs text-text-muted">{item.nodeName}</td>
                   <td className="px-4 py-3 font-mono text-xs text-text-muted">{item.age}</td>
-                  <td className="px-4 py-3"><button className="h-6 w-6 flex items-center justify-center text-text-dim hover:text-text opacity-0 group-hover:opacity-100 transition-opacity"><MoreHorizontal className="h-3.5 w-3.5" /></button></td>
+                  <td className="px-4 py-3">
+                    <div className="flex items-center gap-0.5 opacity-0 group-hover:opacity-100 transition-opacity">
+                      <button
+                        onClick={() => setLogTarget({ name: item.name, namespace: item.namespace, containers: item.containers })}
+                        title={t("logs.viewLogs")}
+                        className="h-6 w-6 flex items-center justify-center text-text-dim hover:text-accent transition-colors"
+                      >
+                        <ScrollText className="h-3.5 w-3.5" />
+                      </button>
+                      <button className="h-6 w-6 flex items-center justify-center text-text-dim hover:text-text transition-colors">
+                        <MoreHorizontal className="h-3.5 w-3.5" />
+                      </button>
+                    </div>
+                  </td>
                 </tr>
               ))}
             </tbody>
           </table>
         </div>
       </Card>
+
+      {logTarget && (
+        <LogDrawer
+          clusterId={clusterId}
+          namespace={logTarget.namespace}
+          podName={logTarget.name}
+          containers={logTarget.containers}
+          onClose={() => setLogTarget(null)}
+        />
+      )}
     </>
   );
 }

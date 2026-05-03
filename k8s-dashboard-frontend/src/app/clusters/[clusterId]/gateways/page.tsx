@@ -1,18 +1,19 @@
 import { Header } from "@/shared/components/layout/header";
 import { PageContainer } from "@/shared/components/layout/page-container";
-import { PodsTable } from "@/features/pods/pods-table";
-import { getPods } from "@/services/pod-service";
+import { GatewaysTable } from "@/features/gateways/gateways-table";
+import { getGateways } from "@/services/gateway-service";
 import { getTranslations } from "next-intl/server";
 
 interface Props { params: Promise<{ clusterId: string }> }
 
-export default async function PodsPage({ params }: Props) {
+export default async function GatewaysPage({ params }: Props) {
   const { clusterId } = await params;
-  const items = await getPods(clusterId);
-  const t = await getTranslations("pods");
+  const items = await getGateways(clusterId);
+  const t = await getTranslations("gateways");
 
-  const runningCount = items.filter((p) => p.status === "Running").length;
-  const failingCount = items.filter((p) => p.status === "CrashLoopBackOff" || p.status === "Failed").length;
+  const readyCount    = items.filter((i) => i.status === "Ready").length;
+  const notReadyCount = items.filter((i) => i.status === "NotReady").length;
+  const pendingCount  = items.filter((i) => i.status === "Pending").length;
 
   return (
     <>
@@ -20,9 +21,10 @@ export default async function PodsPage({ params }: Props) {
       <PageContainer>
         <div className="flex items-center gap-6 mb-5 pb-5 border-b border-border">
           {[
-            { label: t("summary.total"),   value: items.length,  color: "text-text"        },
-            { label: t("summary.running"), value: runningCount,  color: "text-accent"      },
-            { label: t("summary.failing"), value: failingCount,  color: "text-accent-crit" },
+            { label: t("summary.total"),    value: items.length,  color: "text-text"        },
+            { label: t("summary.ready"),    value: readyCount,    color: "text-accent"      },
+            { label: t("summary.notReady"), value: notReadyCount, color: "text-accent-crit" },
+            { label: t("summary.pending"),  value: pendingCount,  color: "text-accent-info" },
           ].map((s, i) => (
             <div key={i} className="flex items-center gap-6">
               {i > 0 && <div className="h-10 w-px bg-border" />}
@@ -33,7 +35,7 @@ export default async function PodsPage({ params }: Props) {
             </div>
           ))}
         </div>
-        <PodsTable items={items} clusterId={clusterId} />
+        <GatewaysTable items={items} />
       </PageContainer>
     </>
   );

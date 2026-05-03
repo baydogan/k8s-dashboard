@@ -1,18 +1,18 @@
 import { Header } from "@/shared/components/layout/header";
 import { PageContainer } from "@/shared/components/layout/page-container";
-import { PodsTable } from "@/features/pods/pods-table";
-import { getPods } from "@/services/pod-service";
+import { ReferenceGrantsTable } from "@/features/reference-grants/reference-grants-table";
+import { getReferenceGrants } from "@/services/reference-grant-service";
 import { getTranslations } from "next-intl/server";
 
 interface Props { params: Promise<{ clusterId: string }> }
 
-export default async function PodsPage({ params }: Props) {
+export default async function ReferenceGrantsPage({ params }: Props) {
   const { clusterId } = await params;
-  const items = await getPods(clusterId);
-  const t = await getTranslations("pods");
+  const items = await getReferenceGrants(clusterId);
+  const t = await getTranslations("referenceGrants");
 
-  const runningCount = items.filter((p) => p.status === "Running").length;
-  const failingCount = items.filter((p) => p.status === "CrashLoopBackOff" || p.status === "Failed").length;
+  const namespacesCount    = new Set(items.map((i) => i.namespace)).size;
+  const crossNsCount       = items.filter((i) => i.fromNamespace !== i.namespace).length;
 
   return (
     <>
@@ -20,9 +20,9 @@ export default async function PodsPage({ params }: Props) {
       <PageContainer>
         <div className="flex items-center gap-6 mb-5 pb-5 border-b border-border">
           {[
-            { label: t("summary.total"),   value: items.length,  color: "text-text"        },
-            { label: t("summary.running"), value: runningCount,  color: "text-accent"      },
-            { label: t("summary.failing"), value: failingCount,  color: "text-accent-crit" },
+            { label: t("summary.total"),      value: items.length,   color: "text-text"        },
+            { label: t("summary.namespaces"), value: namespacesCount, color: "text-accent"      },
+            { label: t("summary.crossNs"),    value: crossNsCount,    color: "text-accent-warn" },
           ].map((s, i) => (
             <div key={i} className="flex items-center gap-6">
               {i > 0 && <div className="h-10 w-px bg-border" />}
@@ -33,7 +33,7 @@ export default async function PodsPage({ params }: Props) {
             </div>
           ))}
         </div>
-        <PodsTable items={items} clusterId={clusterId} />
+        <ReferenceGrantsTable items={items} />
       </PageContainer>
     </>
   );

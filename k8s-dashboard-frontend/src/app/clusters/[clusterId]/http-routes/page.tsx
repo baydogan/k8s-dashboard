@@ -1,18 +1,18 @@
 import { Header } from "@/shared/components/layout/header";
 import { PageContainer } from "@/shared/components/layout/page-container";
-import { PodsTable } from "@/features/pods/pods-table";
-import { getPods } from "@/services/pod-service";
+import { HTTPRoutesTable } from "@/features/http-routes/http-routes-table";
+import { getHTTPRoutes } from "@/services/http-route-service";
 import { getTranslations } from "next-intl/server";
 
 interface Props { params: Promise<{ clusterId: string }> }
 
-export default async function PodsPage({ params }: Props) {
+export default async function HTTPRoutesPage({ params }: Props) {
   const { clusterId } = await params;
-  const items = await getPods(clusterId);
-  const t = await getTranslations("pods");
+  const items = await getHTTPRoutes(clusterId);
+  const t = await getTranslations("httpRoutes");
 
-  const runningCount = items.filter((p) => p.status === "Running").length;
-  const failingCount = items.filter((p) => p.status === "CrashLoopBackOff" || p.status === "Failed").length;
+  const totalRules    = items.reduce((sum, i) => sum + i.rules, 0);
+  const gatewayCount  = new Set(items.flatMap((i) => i.parentRefs)).size;
 
   return (
     <>
@@ -20,9 +20,9 @@ export default async function PodsPage({ params }: Props) {
       <PageContainer>
         <div className="flex items-center gap-6 mb-5 pb-5 border-b border-border">
           {[
-            { label: t("summary.total"),   value: items.length,  color: "text-text"        },
-            { label: t("summary.running"), value: runningCount,  color: "text-accent"      },
-            { label: t("summary.failing"), value: failingCount,  color: "text-accent-crit" },
+            { label: t("summary.total"),    value: items.length, color: "text-text"        },
+            { label: t("summary.gateways"), value: gatewayCount, color: "text-accent"      },
+            { label: t("summary.rules"),    value: totalRules,   color: "text-accent-info" },
           ].map((s, i) => (
             <div key={i} className="flex items-center gap-6">
               {i > 0 && <div className="h-10 w-px bg-border" />}
@@ -33,7 +33,7 @@ export default async function PodsPage({ params }: Props) {
             </div>
           ))}
         </div>
-        <PodsTable items={items} clusterId={clusterId} />
+        <HTTPRoutesTable items={items} />
       </PageContainer>
     </>
   );

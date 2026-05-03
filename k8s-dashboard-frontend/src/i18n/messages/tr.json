@@ -99,6 +99,7 @@
       "workloads": "YÜKLER",
       "cluster": "CLUSTER",
       "network": "AĞ",
+      "gateway": "GATEWAY API",
       "storage": "DEPOLAMA",
       "config": "YAPILANDIRMA",
       "rbac": "YETKİLENDİRME"
@@ -113,6 +114,14 @@
       "namespaces": "Namespaceler",
       "services": "Servisler",
       "ingresses": "Ingressler",
+      "ingressClasses": "Ingress Sınıfları",
+      "gateways": "Gateway'ler",
+      "gatewayClasses": "Gateway Sınıfları",
+      "httpRoutes": "HTTP Rotaları",
+      "grpcRoutes": "GRPC Rotaları",
+      "referenceGrants": "Referans İzinleri",
+      "backendTlsPolicies": "Backend TLS Politikaları",
+      "backendTrafficPolicies": "Backend Trafik Politikaları",
       "endpoints": "Endpointler",
       "endpointSlices": "Endpoint Slice'ları",
       "apiServer": "API Server",
@@ -131,7 +140,10 @@
       "serviceAccounts": "Servis Hesapları",
       "networkPolicies": "Ağ Politikaları",
       "limitRanges": "Limit Aralıkları",
-      "roles": "Roller"
+      "roles": "Roller",
+      "roleBindings": "Rol Bağlamaları",
+      "clusterRoles": "Cluster Rolleri",
+      "clusterRoleBindings": "Cluster Rol Bağlamaları"
     },
     "live": "CANLI",
     "activeCluster": "Aktif Cluster",
@@ -210,6 +222,13 @@
       "crashLoopBackOff": "CrashLoopBackOff",
       "terminating": "Sonlandırılıyor",
       "unknown": "Bilinmiyor"
+    },
+    "logs": {
+      "viewLogs": "Logları görüntüle",
+      "loading": "Loglar yükleniyor...",
+      "noOutput": "Log çıktısı yok.",
+      "lines": "satır",
+      "autoScroll": "Otomatik kaydır"
     }
   },
   "nodes": {
@@ -465,6 +484,55 @@
     "tlsDisabled": "TLS Yok",
     "noAddress": "—"
   },
+  "ingressClasses": {
+    "title": "Ingress Sınıfları",
+    "breadcrumb": "Ağ",
+    "summary": { "total": "Toplam", "default": "Varsayılan" },
+    "columns": { "name": "Ad", "controller": "Controller", "age": "Yaş" },
+    "default": "varsayılan"
+  },
+  "gatewayClasses": {
+    "title": "Gateway Sınıfları",
+    "breadcrumb": "Gateway API",
+    "summary": { "total": "Toplam", "accepted": "Kabul Edildi", "pending": "Bekliyor", "invalid": "Geçersiz" },
+    "columns": { "name": "Ad", "controller": "Controller", "status": "Durum", "age": "Yaş" }
+  },
+  "gateways": {
+    "title": "Gateway'ler",
+    "breadcrumb": "Gateway API",
+    "summary": { "total": "Toplam", "ready": "Hazır", "notReady": "Hazır Değil", "pending": "Bekliyor" },
+    "columns": { "name": "Ad", "namespace": "Namespace", "class": "Sınıf", "status": "Durum", "addresses": "Adresler", "listeners": "Dinleyici", "age": "Yaş" }
+  },
+  "httpRoutes": {
+    "title": "HTTP Rotaları",
+    "breadcrumb": "Gateway API",
+    "summary": { "total": "Toplam", "gateways": "Gateway", "rules": "Toplam Kural" },
+    "columns": { "name": "Ad", "namespace": "Namespace", "parentRefs": "Üst Ref", "hostnames": "Hostname'ler", "rules": "Kurallar", "age": "Yaş" }
+  },
+  "grpcRoutes": {
+    "title": "GRPC Rotaları",
+    "breadcrumb": "Gateway API",
+    "summary": { "total": "Toplam", "gateways": "Gateway", "rules": "Toplam Kural" },
+    "columns": { "name": "Ad", "namespace": "Namespace", "parentRefs": "Üst Ref", "hostnames": "Hostname'ler", "rules": "Kurallar", "age": "Yaş" }
+  },
+  "referenceGrants": {
+    "title": "Referans İzinleri",
+    "breadcrumb": "Gateway API",
+    "summary": { "total": "Toplam", "namespaces": "Namespace", "crossNs": "Çapraz NS" },
+    "columns": { "name": "Ad", "namespace": "Namespace", "fromKind": "Kaynak Tür", "fromNamespace": "Kaynak NS", "toKind": "Hedef Tür", "age": "Yaş" }
+  },
+  "backendTlsPolicies": {
+    "title": "Backend TLS Politikaları",
+    "breadcrumb": "Gateway API",
+    "summary": { "total": "Toplam", "namespaces": "Namespace" },
+    "columns": { "name": "Ad", "namespace": "Namespace", "targetService": "Hedef Servis", "targetPort": "Port", "caCertRef": "CA Sertifika", "age": "Yaş" }
+  },
+  "backendTrafficPolicies": {
+    "title": "Backend Trafik Politikaları",
+    "breadcrumb": "Gateway API",
+    "summary": { "total": "Toplam", "namespaces": "Namespace", "leastReq": "Az İstekli" },
+    "columns": { "name": "Ad", "namespace": "Namespace", "targetService": "Hedef Servis", "loadBalancer": "Yük Dengeleme", "age": "Yaş" }
+  },
   "endpoints": {
     "title": "Endpointler",
     "breadcrumb": "Ağ",
@@ -512,6 +580,26 @@
     "breadcrumb": "Yetkilendirme",
     "summary": { "total": "Toplam", "namespaces": "Namespace", "rules": "Toplam Kural" },
     "columns": { "name": "Ad", "namespace": "Namespace", "rules": "Kurallar", "age": "Yaş" }
+  },
+  "roleBindings": {
+    "title": "Rol Bağlamaları",
+    "breadcrumb": "Yetkilendirme",
+    "summary": { "total": "Toplam", "namespaces": "Namespace", "clusterRoleRefs": "ClusterRole Referansı" },
+    "columns": { "name": "Ad", "namespace": "Namespace", "roleRef": "Rol Referansı", "roleKind": "Tür", "subjects": "Özne", "age": "Yaş" }
+  },
+  "clusterRoles": {
+    "title": "Cluster Rolleri",
+    "breadcrumb": "Yetkilendirme",
+    "summary": { "total": "Toplam", "custom": "Özel", "builtin": "Yerleşik" },
+    "columns": { "name": "Ad", "type": "Tür", "rules": "Kurallar", "age": "Yaş" },
+    "type": { "builtin": "Yerleşik", "custom": "Özel" }
+  },
+  "clusterRoleBindings": {
+    "title": "Cluster Rol Bağlamaları",
+    "breadcrumb": "Yetkilendirme",
+    "summary": { "total": "Toplam", "custom": "Özel", "builtin": "Yerleşik" },
+    "columns": { "name": "Ad", "roleRef": "Rol Referansı", "type": "Tür", "subjects": "Özne", "age": "Yaş" },
+    "type": { "builtin": "Yerleşik", "custom": "Özel" }
   },
   "placeholder": {
     "status": "DURUM / BEKLEMEDE",

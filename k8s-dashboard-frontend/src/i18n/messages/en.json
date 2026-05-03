@@ -99,6 +99,7 @@
       "workloads": "WORKLOADS",
       "cluster": "CLUSTER",
       "network": "NETWORK",
+      "gateway": "GATEWAY API",
       "storage": "STORAGE",
       "config": "CONFIG",
       "rbac": "RBAC"
@@ -113,6 +114,14 @@
       "namespaces": "Namespaces",
       "services": "Services",
       "ingresses": "Ingresses",
+      "ingressClasses": "Ingress Classes",
+      "gateways": "Gateways",
+      "gatewayClasses": "Gateway Classes",
+      "httpRoutes": "HTTP Routes",
+      "grpcRoutes": "GRPC Routes",
+      "referenceGrants": "Reference Grants",
+      "backendTlsPolicies": "Backend TLS Policies",
+      "backendTrafficPolicies": "Backend Traffic Policies",
       "endpoints": "Endpoints",
       "endpointSlices": "Endpoint Slices",
       "apiServer": "API Server",
@@ -131,7 +140,10 @@
       "serviceAccounts": "Service Accounts",
       "networkPolicies": "Network Policies",
       "limitRanges": "Limit Ranges",
-      "roles": "Roles"
+      "roles": "Roles",
+      "roleBindings": "Role Bindings",
+      "clusterRoles": "Cluster Roles",
+      "clusterRoleBindings": "Cluster Role Bindings"
     },
     "live": "LIVE",
     "activeCluster": "Active Cluster",
@@ -210,6 +222,13 @@
       "crashLoopBackOff": "CrashLoopBackOff",
       "terminating": "Terminating",
       "unknown": "Unknown"
+    },
+    "logs": {
+      "viewLogs": "View logs",
+      "loading": "Loading logs...",
+      "noOutput": "No log output.",
+      "lines": "lines",
+      "autoScroll": "Auto-scroll"
     }
   },
   "nodes": {
@@ -465,6 +484,55 @@
     "tlsDisabled": "No TLS",
     "noAddress": "—"
   },
+  "ingressClasses": {
+    "title": "Ingress Classes",
+    "breadcrumb": "Network",
+    "summary": { "total": "Total", "default": "Default" },
+    "columns": { "name": "Name", "controller": "Controller", "age": "Age" },
+    "default": "default"
+  },
+  "gatewayClasses": {
+    "title": "Gateway Classes",
+    "breadcrumb": "Gateway API",
+    "summary": { "total": "Total", "accepted": "Accepted", "pending": "Pending", "invalid": "Invalid" },
+    "columns": { "name": "Name", "controller": "Controller", "status": "Status", "age": "Age" }
+  },
+  "gateways": {
+    "title": "Gateways",
+    "breadcrumb": "Gateway API",
+    "summary": { "total": "Total", "ready": "Ready", "notReady": "Not Ready", "pending": "Pending" },
+    "columns": { "name": "Name", "namespace": "Namespace", "class": "Class", "status": "Status", "addresses": "Addresses", "listeners": "Listeners", "age": "Age" }
+  },
+  "httpRoutes": {
+    "title": "HTTP Routes",
+    "breadcrumb": "Gateway API",
+    "summary": { "total": "Total", "gateways": "Gateways", "rules": "Total Rules" },
+    "columns": { "name": "Name", "namespace": "Namespace", "parentRefs": "Parent Refs", "hostnames": "Hostnames", "rules": "Rules", "age": "Age" }
+  },
+  "grpcRoutes": {
+    "title": "GRPC Routes",
+    "breadcrumb": "Gateway API",
+    "summary": { "total": "Total", "gateways": "Gateways", "rules": "Total Rules" },
+    "columns": { "name": "Name", "namespace": "Namespace", "parentRefs": "Parent Refs", "hostnames": "Hostnames", "rules": "Rules", "age": "Age" }
+  },
+  "referenceGrants": {
+    "title": "Reference Grants",
+    "breadcrumb": "Gateway API",
+    "summary": { "total": "Total", "namespaces": "Namespaces", "crossNs": "Cross-NS" },
+    "columns": { "name": "Name", "namespace": "Namespace", "fromKind": "From Kind", "fromNamespace": "From Namespace", "toKind": "To Kind", "age": "Age" }
+  },
+  "backendTlsPolicies": {
+    "title": "Backend TLS Policies",
+    "breadcrumb": "Gateway API",
+    "summary": { "total": "Total", "namespaces": "Namespaces" },
+    "columns": { "name": "Name", "namespace": "Namespace", "targetService": "Target Service", "targetPort": "Port", "caCertRef": "CA Cert Ref", "age": "Age" }
+  },
+  "backendTrafficPolicies": {
+    "title": "Backend Traffic Policies",
+    "breadcrumb": "Gateway API",
+    "summary": { "total": "Total", "namespaces": "Namespaces", "leastReq": "Least Request" },
+    "columns": { "name": "Name", "namespace": "Namespace", "targetService": "Target Service", "loadBalancer": "Load Balancer", "age": "Age" }
+  },
   "endpoints": {
     "title": "Endpoints",
     "breadcrumb": "Network",
@@ -512,6 +580,26 @@
     "breadcrumb": "RBAC",
     "summary": { "total": "Total", "namespaces": "Namespaces", "rules": "Total Rules" },
     "columns": { "name": "Name", "namespace": "Namespace", "rules": "Rules", "age": "Age" }
+  },
+  "roleBindings": {
+    "title": "Role Bindings",
+    "breadcrumb": "RBAC",
+    "summary": { "total": "Total", "namespaces": "Namespaces", "clusterRoleRefs": "ClusterRole Refs" },
+    "columns": { "name": "Name", "namespace": "Namespace", "roleRef": "Role Ref", "roleKind": "Kind", "subjects": "Subjects", "age": "Age" }
+  },
+  "clusterRoles": {
+    "title": "Cluster Roles",
+    "breadcrumb": "RBAC",
+    "summary": { "total": "Total", "custom": "Custom", "builtin": "Built-in" },
+    "columns": { "name": "Name", "type": "Type", "rules": "Rules", "age": "Age" },
+    "type": { "builtin": "Built-in", "custom": "Custom" }
+  },
+  "clusterRoleBindings": {
+    "title": "Cluster Role Bindings",
+    "breadcrumb": "RBAC",
+    "summary": { "total": "Total", "custom": "Custom", "builtin": "Built-in" },
+    "columns": { "name": "Name", "roleRef": "Role Ref", "type": "Type", "subjects": "Subjects", "age": "Age" },
+    "type": { "builtin": "Built-in", "custom": "Custom" }
   },
   "placeholder": {
     "status": "STATUS / PENDING_IMPLEMENTATION",
